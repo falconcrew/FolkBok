@@ -61,12 +61,13 @@ namespace FolkBok
         private void addRowButton_Click(object sender, EventArgs e)
         {
             moveButton(addRowButton,down);
+            moveButton(removeRowButton,down);
             moveLabel(sumDescriptionLabel,down);
             moveLabel(sumLabel,down);
             moveLabel(lineLabel,down);
 
             TextBox TB = new TextBox();
-            Point p = descriptionTextBoxes.First().Location;
+            Point p = descriptionTextBoxes.Last().Location;
             p.Y += 29;
             TB.Location = p;
             TB.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -74,10 +75,10 @@ namespace FolkBok
             TB.Size = new Size(679, 29);
             TB.TabIndex = 21;
             this.Controls.Add(TB);
-            dateTextBoxes.Add(TB);
+            descriptionTextBoxes.Add(TB);
 
             TB = new TextBox();
-            p = dateTextBoxes.First().Location;
+            p = dateTextBoxes.Last().Location;
             p.Y += 29;
             TB.Location = p;
             TB.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -88,15 +89,34 @@ namespace FolkBok
             dateTextBoxes.Add(TB);
 
             TB = new TextBox();
-            p = amountTextBoxes.First().Location;
+            p = amountTextBoxes.Last().Location;
             p.Y += 29;
             TB.Location = p;
             TB.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             TB.Name = "amountTextBox" + amountTextBoxes.Count;
             TB.Size = new Size(187, 29);
             TB.TabIndex = 21;
+            TB.TextChanged += new EventHandler(updateSumLabel);
             this.Controls.Add(TB);
-            dateTextBoxes.Add(TB);
+            amountTextBoxes.Add(TB);
+        }
+
+        private void removeRowButton_Click(object sender, EventArgs e)
+        {
+            TextBox TB = descriptionTextBoxes.Last();
+            descriptionTextBoxes.Remove(TB);
+            Controls.Remove(TB);
+            TB = dateTextBoxes.Last();
+            dateTextBoxes.Remove(TB);
+            Controls.Remove(TB);
+            TB = amountTextBoxes.Last();
+            amountTextBoxes.Remove(TB);
+            Controls.Remove(TB);
+
+            moveButton(addRowButton, up);
+            moveButton(removeRowButton, up);
+            moveLabel(sumDescriptionLabel, up);
+            moveLabel(sumLabel, up);
         }
 
         private void moveButton(Button button, int direction)
@@ -111,6 +131,28 @@ namespace FolkBok
             Point p = label.Location;
             p.Y += direction * 29;
             label.Location = p;
+        }
+
+        private void updateSumLabel(object sender, EventArgs e)
+        {
+            int sum = 0;
+            foreach (TextBox textBox in amountTextBoxes)
+            {
+                sum += Convert.ToInt32(textBox.Text);
+            }
+            sumLabel.Text = sum.ToString();
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            string address = addressTextBox.Text;
+            string ourReference = ourReferenceTextBox.Text;
+            string yourReference = yourReferenceTextBox.Text;
+            Invoice invoice = new Invoice(address, invoiceDate, 1, ourReference, yourReference);
+            for (int i = 0; i < descriptionTextBoxes.Count; i++)
+            {
+
+            }
         }
     }
 }

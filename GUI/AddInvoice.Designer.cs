@@ -46,9 +46,9 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label16 = new System.Windows.Forms.Label();
             this.invoiceNumberLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.yourReferenceTextBox = new System.Windows.Forms.TextBox();
+            this.ourReferenceTextBox = new System.Windows.Forms.TextBox();
+            this.addressTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -59,11 +59,12 @@
             this.lineLabel = new System.Windows.Forms.Label();
             this.sumLabel = new System.Windows.Forms.Label();
             this.addRowButton = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.button3 = new System.Windows.Forms.Button();
+            this.removeRowButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -237,8 +238,8 @@
             this.tableLayoutPanel1.Controls.Add(this.paymentTermLabel, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label11, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.invoiceNumberLabel, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBox2, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.yourReferenceTextBox, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.ourReferenceTextBox, 1, 5);
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 182);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -272,33 +273,33 @@
             this.invoiceNumberLabel.Size = new System.Drawing.Size(0, 21);
             this.invoiceNumberLabel.TabIndex = 18;
             // 
-            // textBox1
+            // yourReferenceTextBox
             // 
-            this.textBox1.BackColor = System.Drawing.Color.Gainsboro;
-            this.textBox1.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(203, 113);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(194, 23);
-            this.textBox1.TabIndex = 19;
+            this.yourReferenceTextBox.BackColor = System.Drawing.Color.Gainsboro;
+            this.yourReferenceTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.yourReferenceTextBox.Location = new System.Drawing.Point(203, 135);
+            this.yourReferenceTextBox.Name = "yourReferenceTextBox";
+            this.yourReferenceTextBox.Size = new System.Drawing.Size(194, 23);
+            this.yourReferenceTextBox.TabIndex = 20;
             // 
-            // textBox2
+            // ourReferenceTextBox
             // 
-            this.textBox2.BackColor = System.Drawing.Color.Gainsboro;
-            this.textBox2.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(203, 135);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(194, 23);
-            this.textBox2.TabIndex = 20;
+            this.ourReferenceTextBox.BackColor = System.Drawing.Color.Gainsboro;
+            this.ourReferenceTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ourReferenceTextBox.Location = new System.Drawing.Point(203, 113);
+            this.ourReferenceTextBox.Name = "ourReferenceTextBox";
+            this.ourReferenceTextBox.Size = new System.Drawing.Size(194, 23);
+            this.ourReferenceTextBox.TabIndex = 19;
             // 
-            // textBox3
+            // addressTextBox
             // 
-            this.textBox3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(622, 161);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(295, 130);
-            this.textBox3.TabIndex = 17;
-            this.textBox3.Text = "Adress";
+            this.addressTextBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addressTextBox.Location = new System.Drawing.Point(622, 161);
+            this.addressTextBox.Multiline = true;
+            this.addressTextBox.Name = "addressTextBox";
+            this.addressTextBox.Size = new System.Drawing.Size(295, 130);
+            this.addressTextBox.TabIndex = 17;
+            this.addressTextBox.Text = "Adress";
             // 
             // label5
             // 
@@ -359,6 +360,7 @@
             this.amountTextBox.Name = "amountTextBox";
             this.amountTextBox.Size = new System.Drawing.Size(187, 29);
             this.amountTextBox.TabIndex = 23;
+            this.amountTextBox.TextChanged += new System.EventHandler(this.updateSumLabel);
             // 
             // sumDescriptionLabel
             // 
@@ -399,15 +401,16 @@
             this.addRowButton.UseVisualStyleBackColor = true;
             this.addRowButton.Click += new System.EventHandler(this.addRowButton_Click);
             // 
-            // button2
+            // saveButton
             // 
-            this.button2.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(796, 720);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 30);
-            this.button2.TabIndex = 28;
-            this.button2.Text = "Save";
-            this.button2.UseVisualStyleBackColor = true;
+            this.saveButton.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveButton.Location = new System.Drawing.Point(796, 720);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 30);
+            this.saveButton.TabIndex = 28;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // button1
             // 
@@ -443,6 +446,17 @@
             this.button3.Text = "Print preview";
             this.button3.UseVisualStyleBackColor = true;
             // 
+            // removeRowButton
+            // 
+            this.removeRowButton.Font = new System.Drawing.Font("Times New Roman", 14F);
+            this.removeRowButton.Location = new System.Drawing.Point(116, 449);
+            this.removeRowButton.Name = "removeRowButton";
+            this.removeRowButton.Size = new System.Drawing.Size(116, 30);
+            this.removeRowButton.TabIndex = 31;
+            this.removeRowButton.Text = "Remove row";
+            this.removeRowButton.UseVisualStyleBackColor = true;
+            this.removeRowButton.Click += new System.EventHandler(this.removeRowButton_Click);
+            // 
             // AddInvoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -450,9 +464,10 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1094, 762);
+            this.Controls.Add(this.removeRowButton);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.addRowButton);
             this.Controls.Add(this.sumLabel);
             this.Controls.Add(this.lineLabel);
@@ -463,7 +478,7 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.addressTextBox);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -498,9 +513,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label invoiceNumberLabel;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox ourReferenceTextBox;
+        private System.Windows.Forms.TextBox yourReferenceTextBox;
+        private System.Windows.Forms.TextBox addressTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
@@ -511,10 +526,11 @@
         private System.Windows.Forms.Label lineLabel;
         private System.Windows.Forms.Label sumLabel;
         private System.Windows.Forms.Button addRowButton;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PrintDialog printDialog1;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button removeRowButton;
     }
 }
