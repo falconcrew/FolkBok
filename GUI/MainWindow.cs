@@ -19,6 +19,8 @@ namespace FolkBok
         {
             InitializeComponent();
 
+            AddVoucher addVoucher = new AddVoucher();
+            addVoucher.ShowDialog();
             AddInvoice addInvoice = new AddInvoice();
             addInvoice.ShowDialog();
 

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FolkBok.GUI
+namespace FolkBok
 {
     public partial class AddVoucher : Form
     {
