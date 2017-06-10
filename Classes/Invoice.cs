@@ -16,13 +16,13 @@ namespace FolkBok
         private List<InvoiceLine> lines;
         private double sum;
 
-        public Invoice(string address, DateTime date, int number, string ourReference, string yourReference)
+        public Invoice(string address, DateTime date, string ourReference, string yourReference)
         {
             Address = address;
             Date = date;
             OurReference = ourReference;
             YourReference = yourReference;
-            this.number = number;
+            getNumber();
             lines = new List<InvoiceLine>();
         }
 
@@ -37,6 +37,16 @@ namespace FolkBok
             InvoiceLine line = lines.ElementAt(index);
             sum -= line.Cost;
             lines.Remove(line);
+        }
+
+        public List<InvoiceLine> getLines()
+        {
+            return lines;
+        }
+
+        private void getNumber()
+        {
+            number = 12;
         }
 
         public string Address
@@ -88,6 +98,22 @@ namespace FolkBok
             set
             {
                 yourReference = value;
+            }
+        }
+
+        public int Number
+        {
+            get
+            {
+                return number;
+            }
+        }
+
+        public double Sum
+        {
+            get
+            {
+                return sum;
             }
         }
     }

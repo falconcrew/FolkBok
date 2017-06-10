@@ -53,7 +53,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.descriptionTextBox = new System.Windows.Forms.TextBox();
-            this.dateTextBox = new System.Windows.Forms.TextBox();
             this.amountTextBox = new System.Windows.Forms.TextBox();
             this.sumDescriptionLabel = new System.Windows.Forms.Label();
             this.lineLabel = new System.Windows.Forms.Label();
@@ -65,6 +64,7 @@
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.button3 = new System.Windows.Forms.Button();
             this.removeRowButton = new System.Windows.Forms.Button();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -345,14 +345,6 @@
             this.descriptionTextBox.Size = new System.Drawing.Size(679, 29);
             this.descriptionTextBox.TabIndex = 21;
             // 
-            // dateTextBox
-            // 
-            this.dateTextBox.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTextBox.Location = new System.Drawing.Point(695, 408);
-            this.dateTextBox.Name = "dateTextBox";
-            this.dateTextBox.Size = new System.Drawing.Size(195, 29);
-            this.dateTextBox.TabIndex = 22;
-            // 
             // amountTextBox
             // 
             this.amountTextBox.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -360,13 +352,14 @@
             this.amountTextBox.Name = "amountTextBox";
             this.amountTextBox.Size = new System.Drawing.Size(187, 29);
             this.amountTextBox.TabIndex = 23;
+            this.amountTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.amountTextBox.TextChanged += new System.EventHandler(this.updateSumLabel);
             // 
             // sumDescriptionLabel
             // 
             this.sumDescriptionLabel.AutoSize = true;
             this.sumDescriptionLabel.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sumDescriptionLabel.Location = new System.Drawing.Point(691, 440);
+            this.sumDescriptionLabel.Location = new System.Drawing.Point(691, 442);
             this.sumDescriptionLabel.Name = "sumDescriptionLabel";
             this.sumDescriptionLabel.Size = new System.Drawing.Size(153, 22);
             this.sumDescriptionLabel.TabIndex = 24;
@@ -384,11 +377,13 @@
             // 
             // sumLabel
             // 
-            this.sumLabel.AutoSize = true;
-            this.sumLabel.Location = new System.Drawing.Point(892, 449);
+            this.sumLabel.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sumLabel.Location = new System.Drawing.Point(895, 442);
             this.sumLabel.Name = "sumLabel";
-            this.sumLabel.Size = new System.Drawing.Size(0, 13);
+            this.sumLabel.Size = new System.Drawing.Size(187, 22);
             this.sumLabel.TabIndex = 26;
+            this.sumLabel.Text = "0 kr";
+            this.sumLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // addRowButton
             // 
@@ -457,6 +452,16 @@
             this.removeRowButton.UseVisualStyleBackColor = true;
             this.removeRowButton.Click += new System.EventHandler(this.removeRowButton_Click);
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dateTimePicker1.Location = new System.Drawing.Point(695, 408);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(194, 29);
+            this.dateTimePicker1.TabIndex = 32;
+            // 
             // AddInvoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -464,6 +469,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1094, 762);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.removeRowButton);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
@@ -473,7 +479,6 @@
             this.Controls.Add(this.lineLabel);
             this.Controls.Add(this.sumDescriptionLabel);
             this.Controls.Add(this.amountTextBox);
-            this.Controls.Add(this.dateTextBox);
             this.Controls.Add(this.descriptionTextBox);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
@@ -485,6 +490,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "AddInvoice";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Invoice";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -520,7 +526,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox descriptionTextBox;
-        private System.Windows.Forms.TextBox dateTextBox;
         private System.Windows.Forms.TextBox amountTextBox;
         private System.Windows.Forms.Label sumDescriptionLabel;
         private System.Windows.Forms.Label lineLabel;
@@ -532,5 +537,6 @@
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button removeRowButton;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }
