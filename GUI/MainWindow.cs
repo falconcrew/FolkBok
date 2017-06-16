@@ -21,8 +21,8 @@ namespace FolkBok
 
             AddVoucher addVoucher = new AddVoucher();
             addVoucher.ShowDialog();
-            AddInvoice addInvoice = new AddInvoice();
-            addInvoice.ShowDialog();
+            //AddInvoice addInvoice = new AddInvoice();
+            //addInvoice.ShowDialog();
 
             //dbSync();
         }

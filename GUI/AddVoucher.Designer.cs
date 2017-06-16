@@ -37,20 +37,24 @@
             this.button1 = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.addRowButton = new System.Windows.Forms.Button();
-            this.amountTextBox = new System.Windows.Forms.TextBox();
+            this.kreditBox1 = new System.Windows.Forms.TextBox();
             this.descriptionTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.accountBox1 = new System.Windows.Forms.ComboBox();
+            this.accountBox2 = new System.Windows.Forms.ComboBox();
+            this.kreditBox2 = new System.Windows.Forms.TextBox();
+            this.debetBox2 = new System.Windows.Forms.TextBox();
+            this.debetBox1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.folkBokDataSet = new FolkBok.FolkBokDataSet();
             this.folkBokDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lineLabel = new System.Windows.Forms.Label();
+            this.sumDescriptionLabel = new System.Windows.Forms.Label();
+            this.kreditSumLabel = new System.Windows.Forms.Label();
+            this.debetSumLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.folkBokDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.folkBokDataSetBindingSource)).BeginInit();
@@ -96,6 +100,7 @@
             this.removeRowButton.TabIndex = 39;
             this.removeRowButton.Text = "Remove row";
             this.removeRowButton.UseVisualStyleBackColor = true;
+            this.removeRowButton.Click += new System.EventHandler(this.RemoveRowButton_Click);
             // 
             // button3
             // 
@@ -126,6 +131,7 @@
             this.saveButton.TabIndex = 36;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // addRowButton
             // 
@@ -136,14 +142,17 @@
             this.addRowButton.TabIndex = 35;
             this.addRowButton.Text = "Add row";
             this.addRowButton.UseVisualStyleBackColor = true;
+            this.addRowButton.Click += new System.EventHandler(this.AddRowButton_Click);
             // 
-            // amountTextBox
+            // kreditBox1
             // 
-            this.amountTextBox.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.amountTextBox.Location = new System.Drawing.Point(895, 307);
-            this.amountTextBox.Name = "amountTextBox";
-            this.amountTextBox.Size = new System.Drawing.Size(187, 29);
-            this.amountTextBox.TabIndex = 34;
+            this.kreditBox1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kreditBox1.Location = new System.Drawing.Point(895, 307);
+            this.kreditBox1.Name = "kreditBox1";
+            this.kreditBox1.Size = new System.Drawing.Size(187, 29);
+            this.kreditBox1.TabIndex = 34;
+            this.kreditBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.kreditBox1.TextChanged += new System.EventHandler(this.updateKreditSumLabel);
             // 
             // descriptionTextBox
             // 
@@ -183,55 +192,59 @@
             this.label4.TabIndex = 42;
             this.label4.Text = "Kredit";
             // 
-            // comboBox1
+            // accountBox1
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 307);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(679, 29);
-            this.comboBox1.TabIndex = 43;
+            this.accountBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.accountBox1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.accountBox1.FormattingEnabled = true;
+            this.accountBox1.Location = new System.Drawing.Point(12, 307);
+            this.accountBox1.Name = "accountBox1";
+            this.accountBox1.Size = new System.Drawing.Size(679, 29);
+            this.accountBox1.TabIndex = 43;
             // 
-            // comboBox2
+            // accountBox2
             // 
-            this.comboBox2.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox2.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.accountBox2.BackColor = System.Drawing.SystemColors.Window;
+            this.accountBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.accountBox2.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.accountBox2.FormattingEnabled = true;
+            this.accountBox2.Items.AddRange(new object[] {
             "Test1",
             "Test2",
             "Test3"});
-            this.comboBox2.Location = new System.Drawing.Point(12, 342);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(679, 29);
-            this.comboBox2.TabIndex = 46;
+            this.accountBox2.Location = new System.Drawing.Point(12, 342);
+            this.accountBox2.Name = "accountBox2";
+            this.accountBox2.Size = new System.Drawing.Size(679, 29);
+            this.accountBox2.TabIndex = 46;
             // 
-            // textBox1
+            // kreditBox2
             // 
-            this.textBox1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(895, 342);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(187, 29);
-            this.textBox1.TabIndex = 45;
+            this.kreditBox2.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kreditBox2.Location = new System.Drawing.Point(895, 342);
+            this.kreditBox2.Name = "kreditBox2";
+            this.kreditBox2.Size = new System.Drawing.Size(187, 29);
+            this.kreditBox2.TabIndex = 45;
+            this.kreditBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // textBox2
+            // debetBox2
             // 
-            this.textBox2.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(697, 342);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(192, 29);
-            this.textBox2.TabIndex = 48;
+            this.debetBox2.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.debetBox2.Location = new System.Drawing.Point(697, 342);
+            this.debetBox2.Name = "debetBox2";
+            this.debetBox2.Size = new System.Drawing.Size(192, 29);
+            this.debetBox2.TabIndex = 48;
+            this.debetBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.debetBox2.TextChanged += new System.EventHandler(this.updateDebetSumLabel);
             // 
-            // textBox3
+            // debetBox1
             // 
-            this.textBox3.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(697, 307);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(192, 29);
-            this.textBox3.TabIndex = 47;
+            this.debetBox1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.debetBox1.Location = new System.Drawing.Point(697, 307);
+            this.debetBox1.Name = "debetBox1";
+            this.debetBox1.Size = new System.Drawing.Size(192, 29);
+            this.debetBox1.TabIndex = 47;
+            this.debetBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.debetBox1.TextChanged += new System.EventHandler(this.updateDebetSumLabel);
             // 
             // label5
             // 
@@ -262,19 +275,63 @@
             this.folkBokDataSetBindingSource.DataSource = this.folkBokDataSet;
             this.folkBokDataSetBindingSource.Position = 0;
             // 
+            // lineLabel
+            // 
+            this.lineLabel.BackColor = System.Drawing.Color.Black;
+            this.lineLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lineLabel.Location = new System.Drawing.Point(582, 377);
+            this.lineLabel.Name = "lineLabel";
+            this.lineLabel.Size = new System.Drawing.Size(500, 2);
+            this.lineLabel.TabIndex = 51;
+            this.lineLabel.Text = "label12";
+            // 
+            // sumDescriptionLabel
+            // 
+            this.sumDescriptionLabel.AutoSize = true;
+            this.sumDescriptionLabel.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sumDescriptionLabel.Location = new System.Drawing.Point(625, 386);
+            this.sumDescriptionLabel.Name = "sumDescriptionLabel";
+            this.sumDescriptionLabel.Size = new System.Drawing.Size(71, 22);
+            this.sumDescriptionLabel.TabIndex = 52;
+            this.sumDescriptionLabel.Text = "Summa";
+            // 
+            // kreditSumLabel
+            // 
+            this.kreditSumLabel.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kreditSumLabel.Location = new System.Drawing.Point(895, 381);
+            this.kreditSumLabel.Name = "kreditSumLabel";
+            this.kreditSumLabel.Size = new System.Drawing.Size(187, 22);
+            this.kreditSumLabel.TabIndex = 53;
+            this.kreditSumLabel.Text = "0 kr";
+            this.kreditSumLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // debetSumLabel
+            // 
+            this.debetSumLabel.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.debetSumLabel.Location = new System.Drawing.Point(702, 386);
+            this.debetSumLabel.Name = "debetSumLabel";
+            this.debetSumLabel.Size = new System.Drawing.Size(187, 22);
+            this.debetSumLabel.TabIndex = 54;
+            this.debetSumLabel.Text = "0 kr";
+            this.debetSumLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // AddVoucher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1094, 568);
+            this.Controls.Add(this.debetSumLabel);
+            this.Controls.Add(this.kreditSumLabel);
+            this.Controls.Add(this.sumDescriptionLabel);
+            this.Controls.Add(this.lineLabel);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.debetBox2);
+            this.Controls.Add(this.debetBox1);
+            this.Controls.Add(this.accountBox2);
+            this.Controls.Add(this.kreditBox2);
+            this.Controls.Add(this.accountBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -283,7 +340,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.addRowButton);
-            this.Controls.Add(this.amountTextBox);
+            this.Controls.Add(this.kreditBox1);
             this.Controls.Add(this.descriptionTextBox);
             this.Controls.Add(this.verNumLabel);
             this.Controls.Add(this.label1);
@@ -308,19 +365,23 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button addRowButton;
-        private System.Windows.Forms.TextBox amountTextBox;
+        private System.Windows.Forms.TextBox kreditBox1;
         private System.Windows.Forms.TextBox descriptionTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.ComboBox accountBox1;
+        private System.Windows.Forms.ComboBox accountBox2;
+        private System.Windows.Forms.TextBox kreditBox2;
+        private System.Windows.Forms.TextBox debetBox2;
+        private System.Windows.Forms.TextBox debetBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private FolkBokDataSet folkBokDataSet;
         private System.Windows.Forms.BindingSource folkBokDataSetBindingSource;
+        private System.Windows.Forms.Label lineLabel;
+        private System.Windows.Forms.Label sumDescriptionLabel;
+        private System.Windows.Forms.Label kreditSumLabel;
+        private System.Windows.Forms.Label debetSumLabel;
     }
 }

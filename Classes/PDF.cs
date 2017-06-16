@@ -239,10 +239,52 @@ namespace FolkBok
     class VoucherPDF
     {
         private string name;
+        private Voucher voucher;
 
         public VoucherPDF(string name, Voucher voucher)
         {
             this.name = name;
+            this.voucher = voucher;
+            createDocument();
+        }
+
+        private void createDocument()
+        {
+            PdfDocument document = new PdfDocument();
+            PdfPage page = document.AddPage();
+            double pointsPermm = page.Height / page.Height.Millimeter;
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XFont Times11 = new XFont("Times New Roman", 11);
+            XFont Times11Bold = new XFont("Times New Roman", 11, XFontStyle.Bold);
+            XFont Times9 = new XFont("Times New Roman", 9);
+            XStringFormat left = new XStringFormat();
+            left.Alignment = XStringAlignment.Near;
+            XStringFormat right = new XStringFormat();
+            right.Alignment = XStringAlignment.Far;
+            XStringFormat center = new XStringFormat();
+            center.Alignment = XStringAlignment.Center;
+
+            byte[] data;
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("FolkBok.Images.FolkLogo.png"))
+            {
+                int count = (int)stream.Length;
+                data = new byte[count];
+                stream.Read(data, 0, count);
+            }
+            MemoryStream mstream = new MemoryStream(data);
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.StreamSource = mstream;
+            image.EndInit();
+            double topLeftX = 14.5 * pointsPermm;
+            double topLeftY = 20.5 * pointsPermm;
+            double height = 29.55 * pointsPermm;
+            double width = 71.67 * pointsPermm;
+            gfx.DrawImage(XImage.FromBitmapSource(image), topLeftX, topLeftY, width, height);
+
+            string filename = name + ".pdf";
+            document.Save(filename);
+            Process.Start(filename);
         }
     }
 }

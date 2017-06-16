@@ -21,6 +21,7 @@ namespace FolkBok
         private List<TextBox> descriptionTextBoxes;
         private List<DateTimePicker> dateBoxes;
         private List<TextBox> amountTextBoxes;
+        private string settingsFile = Directory.GetCurrentDirectory() + "\\InvoiceSettings.txt";
 
         private const int up = -1;
         private const int down = 1;
@@ -49,7 +50,7 @@ namespace FolkBok
 
         private void importInvoiceSettings()
         {
-            StreamReader sr = new StreamReader(@"D:\Git Repositories\FolkBok\InvoiceSettings.txt");
+            StreamReader sr = new StreamReader(settingsFile);
             invoiceNumber = Convert.ToInt32(sr.ReadLine());
             paymentTerm = Convert.ToInt32(sr.ReadLine());
             penaltyInterest = Convert.ToDouble(sr.ReadLine());
@@ -66,82 +67,47 @@ namespace FolkBok
             moveLabel(sumLabel, down);
             moveLabel(lineLabel, down);
 
-            if (dateBoxes.Count == 0)
-            {
-                TextBox TB = new TextBox();
-                TB.Location = new Point(10, 408);
-                TB.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-                TB.Name = "descriptionTextBox" + descriptionTextBoxes.Count;
-                TB.Size = new Size(679, 29);
-                TB.TabIndex = 21;
-                this.Controls.Add(TB);
-                descriptionTextBoxes.Add(TB);
+            TextBox TB = new TextBox();
+            Point p = descriptionTextBoxes.Last().Location;
+            p.Y += 35;
+            TB.Location = p;
+            TB.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TB.Name = "descriptionTextBox" + descriptionTextBoxes.Count;
+            TB.Size = new Size(679, 29);
+            TB.TabIndex = 21;
+            this.Controls.Add(TB);
+            descriptionTextBoxes.Add(TB);
 
-                DateTimePicker DP = new DateTimePicker();
-                DP.Location = new Point(695, 408);
-                DP.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-                DP.Format = DateTimePickerFormat.Short;
-                DP.ImeMode = ImeMode.NoControl;
-                DP.Name = "dateTimePicker" + dateBoxes.Count;
-                DP.Size = new Size(194, 29);
-                DP.TabIndex = 32;
-                Controls.Add(DP);
-                dateBoxes.Add(DP);
+            DateTimePicker DP = new DateTimePicker();
+            p = dateBoxes.Last().Location;
+            p.Y += 35;
+            DP.Location = p;
+            DP.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            DP.Format = DateTimePickerFormat.Short;
+            DP.ImeMode = ImeMode.NoControl;
+            DP.Name = "dateTimePicker" + dateBoxes.Count;
+            DP.Size = new Size(194, 29);
+            DP.TabIndex = 32;
+            Controls.Add(DP);
+            dateBoxes.Add(DP);
 
-                TB = new TextBox();
-                TB.Location = new Point(895, 408);
-                TB.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-                TB.Name = "amountTextBox" + amountTextBoxes.Count;
-                TB.Size = new Size(187, 29);
-                TB.TabIndex = 21;
-                TB.TextChanged += new EventHandler(updateSumLabel);
-                this.Controls.Add(TB);
-                amountTextBoxes.Add(TB); 
-            }
-            else
-            {
-                TextBox TB = new TextBox();
-                Point p = descriptionTextBoxes.Last().Location;
-                p.Y += 29;
-                TB.Location = p;
-                TB.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-                TB.Name = "descriptionTextBox" + descriptionTextBoxes.Count;
-                TB.Size = new Size(679, 29);
-                TB.TabIndex = 21;
-                this.Controls.Add(TB);
-                descriptionTextBoxes.Add(TB);
-
-                DateTimePicker DP = new DateTimePicker();
-                p = dateBoxes.Last().Location;
-                p.Y += 29;
-                DP.Location = p;
-                DP.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-                DP.Format = DateTimePickerFormat.Short;
-                DP.ImeMode = ImeMode.NoControl;
-                DP.Name = "dateTimePicker" + dateBoxes.Count;
-                DP.Size = new Size(194, 29);
-                DP.TabIndex = 32;
-                Controls.Add(DP);
-                dateBoxes.Add(DP);
-
-                TB = new TextBox();
-                p = amountTextBoxes.Last().Location;
-                p.Y += 29;
-                TB.Location = p;
-                TB.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-                TB.Name = "amountTextBox" + amountTextBoxes.Count;
-                TB.Size = new Size(187, 29);
-                TB.TabIndex = 21;
-                TB.TextAlign = HorizontalAlignment.Right;
-                TB.TextChanged += new EventHandler(updateSumLabel);
-                this.Controls.Add(TB);
-                amountTextBoxes.Add(TB);
-            }
+            TB = new TextBox();
+            p = amountTextBoxes.Last().Location;
+            p.Y += 35;
+            TB.Location = p;
+            TB.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TB.Name = "amountTextBox" + amountTextBoxes.Count;
+            TB.Size = new Size(187, 29);
+            TB.TabIndex = 21;
+            TB.TextAlign = HorizontalAlignment.Right;
+            TB.TextChanged += new EventHandler(updateSumLabel);
+            this.Controls.Add(TB);
+            amountTextBoxes.Add(TB);
         }
 
         private void removeRowButton_Click(object sender, EventArgs e)
         {
-            if (amountTextBoxes.Count > 0)
+            if (amountTextBoxes.Count > 1)
             {
                 TextBox TB = descriptionTextBoxes.Last();
                 descriptionTextBoxes.Remove(TB);
@@ -164,14 +130,14 @@ namespace FolkBok
         private void moveButton(Button button, int direction)
         {
             Point p = button.Location;
-            p.Y += direction * 29;
+            p.Y += direction * 35;
             button.Location = p;
         }
 
         private void moveLabel(Label label, int direction)
         {
             Point p = label.Location;
-            p.Y += direction * 29;
+            p.Y += direction * 35;
             label.Location = p;
         }
 
@@ -208,11 +174,6 @@ namespace FolkBok
                 }
             }
             return sum;
-        }
-
-        private void updateLabel(object sender, EventArgs e)
-        {
-
         }
     }
 }
