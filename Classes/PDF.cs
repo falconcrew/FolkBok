@@ -115,7 +115,7 @@ namespace FolkBok
             gfx.DrawString("Belopp", Times11, XBrushes.White, new System.Windows.Point(topLeftX + 13 * width / 16, topLeftY), left);
 
             topLeftY += height;
-            foreach (InvoiceLine line in invoice.getLines())
+            foreach (InvoiceLine line in invoice.Lines)
             {
                 gfx.DrawString(line.Description, Times11, XBrushes.Black, new System.Windows.Point(topLeftX + pointsPermm, topLeftY),left);
                 gfx.DrawString(line.Date.ToShortDateString(), Times11, XBrushes.Black, new System.Windows.Point(topLeftX + 5 * width / 8, topLeftY), left);

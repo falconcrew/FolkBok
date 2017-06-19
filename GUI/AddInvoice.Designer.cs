@@ -353,7 +353,7 @@
             this.amountTextBox.Size = new System.Drawing.Size(187, 29);
             this.amountTextBox.TabIndex = 23;
             this.amountTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.amountTextBox.TextChanged += new System.EventHandler(this.updateSumLabel);
+            this.amountTextBox.TextChanged += new System.EventHandler(this.UpdateSumLabel);
             // 
             // sumDescriptionLabel
             // 
@@ -394,7 +394,7 @@
             this.addRowButton.TabIndex = 27;
             this.addRowButton.Text = "Add row";
             this.addRowButton.UseVisualStyleBackColor = true;
-            this.addRowButton.Click += new System.EventHandler(this.addRowButton_Click);
+            this.addRowButton.Click += new System.EventHandler(this.AddRowButton_Click);
             // 
             // saveButton
             // 
@@ -405,7 +405,7 @@
             this.saveButton.TabIndex = 28;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // button1
             // 
@@ -450,7 +450,7 @@
             this.removeRowButton.TabIndex = 31;
             this.removeRowButton.Text = "Remove row";
             this.removeRowButton.UseVisualStyleBackColor = true;
-            this.removeRowButton.Click += new System.EventHandler(this.removeRowButton_Click);
+            this.removeRowButton.Click += new System.EventHandler(this.RemoveRowButton_Click);
             // 
             // dateTimePicker1
             // 
@@ -461,6 +461,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(194, 29);
             this.dateTimePicker1.TabIndex = 32;
+            this.dateTimePicker1.Value = new System.DateTime(2017, 6, 18, 20, 32, 45, 0);
             // 
             // AddInvoice
             // 

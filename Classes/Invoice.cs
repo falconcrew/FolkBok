@@ -22,100 +22,61 @@ namespace FolkBok
             Date = date;
             OurReference = ourReference;
             YourReference = yourReference;
-            getNumber();
+            SetNumber();
             lines = new List<InvoiceLine>();
         }
 
-        public void addLine(string description, DateTime date, double cost)
+        public void AddLine(string description, DateTime date, double cost)
         {
             lines.Add(new InvoiceLine(description, date, cost));
             sum += cost;
         }
 
-        public void removeLine(int index)
+        public void RemoveLine(int index)
         {
             InvoiceLine line = lines.ElementAt(index);
             sum -= line.Cost;
             lines.Remove(line);
         }
 
-        public List<InvoiceLine> getLines()
-        {
-            return lines;
-        }
+        public List<InvoiceLine> Lines => lines;
 
-        private void getNumber()
+        private void SetNumber()
         {
             number = 12;
         }
 
         public string Address
         {
-            get
-            {
-                return address;
-            }
+            get => address;
 
-            set
-            {
-                address = value;
-            }
+            set => address = value;
         }
 
         public DateTime Date
         {
-            get
-            {
-                return date;
-            }
+            get => date;
 
-            set
-            {
-                date = value;
-            }
+            set => date = value;
         }
 
         public string OurReference
         {
-            get
-            {
-                return ourReference;
-            }
+            get => ourReference;
 
-            set
-            {
-                ourReference = value;
-            }
+            set => ourReference = value;
         }
 
         public string YourReference
         {
-            get
-            {
-                return yourReference;
-            }
+            get => yourReference;
 
-            set
-            {
-                yourReference = value;
-            }
+            set => yourReference = value;
         }
 
-        public int Number
-        {
-            get
-            {
-                return number;
-            }
-        }
+        public int Number => number;
 
-        public double Sum
-        {
-            get
-            {
-                return sum;
-            }
-        }
+        public double Sum => sum;
     }
 
     class InvoiceLine
@@ -133,41 +94,23 @@ namespace FolkBok
 
         public string Description
         {
-            get
-            {
-                return description;
-            }
+            get => description;
 
-            set
-            {
-                description = value;
-            }
+            set => description = value;
         }
 
         public double Cost
         {
-            get
-            {
-                return cost;
-            }
+            get => cost;
 
-            set
-            {
-                cost = value;
-            }
+            set => cost = value;
         }
 
         public DateTime Date
         {
-            get
-            {
-                return date;
-            }
+            get => date;
 
-            set
-            {
-                date = value;
-            }
+            set => date = value;
         }
     }
 }

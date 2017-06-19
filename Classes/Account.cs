@@ -16,5 +16,17 @@ namespace FolkBok
             this.name = name;
             this.number = number;
         }
+
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+
+        public int Number
+        {
+            get => number;
+            set => number = value;
+        }
     }
 }

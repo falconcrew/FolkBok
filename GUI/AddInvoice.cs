@@ -28,8 +28,8 @@ namespace FolkBok
         public AddInvoice()
         {
             InitializeComponent();
-            importInvoiceSettings();
-            setupLabels();
+            ImportInvoiceSettings();
+            SetupLabels();
             descriptionTextBoxes = new List<TextBox>();
             descriptionTextBoxes.Add(descriptionTextBox);
             dateBoxes = new List<DateTimePicker>();
@@ -38,7 +38,7 @@ namespace FolkBok
             amountTextBoxes.Add(amountTextBox);
         }
 
-        private void setupLabels()
+        private void SetupLabels()
         {
             invoiceNumberLabel.Text = invoiceNumber.ToString();
             invoiceDateLabel.Text = invoiceDate.ToShortDateString();
@@ -47,7 +47,7 @@ namespace FolkBok
             penaltyInterestLabel.Text = penaltyInterest.ToString() + "%";
         }
 
-        private void importInvoiceSettings()
+        private void ImportInvoiceSettings()
         {
             StreamReader sr = new StreamReader(@"D:\Git Repositories\FolkBok\InvoiceSettings.txt");
             invoiceNumber = Convert.ToInt32(sr.ReadLine());
@@ -58,13 +58,13 @@ namespace FolkBok
             dueDate = invoiceDate.AddDays(paymentTerm);
         }
 
-        private void addRowButton_Click(object sender, EventArgs e)
+        private void AddRowButton_Click(object sender, EventArgs e)
         {
-            moveButton(addRowButton, down);
-            moveButton(removeRowButton, down);
-            moveLabel(sumDescriptionLabel, down);
-            moveLabel(sumLabel, down);
-            moveLabel(lineLabel, down);
+            MoveButton(addRowButton, down);
+            MoveButton(removeRowButton, down);
+            MoveLabel(sumDescriptionLabel, down);
+            MoveLabel(sumLabel, down);
+            MoveLabel(lineLabel, down);
 
             if (dateBoxes.Count == 0)
             {
@@ -94,7 +94,7 @@ namespace FolkBok
                 TB.Name = "amountTextBox" + amountTextBoxes.Count;
                 TB.Size = new Size(187, 29);
                 TB.TabIndex = 21;
-                TB.TextChanged += new EventHandler(updateSumLabel);
+                TB.TextChanged += new EventHandler(UpdateSumLabel);
                 this.Controls.Add(TB);
                 amountTextBoxes.Add(TB); 
             }
@@ -133,13 +133,13 @@ namespace FolkBok
                 TB.Size = new Size(187, 29);
                 TB.TabIndex = 21;
                 TB.TextAlign = HorizontalAlignment.Right;
-                TB.TextChanged += new EventHandler(updateSumLabel);
+                TB.TextChanged += new EventHandler(UpdateSumLabel);
                 this.Controls.Add(TB);
                 amountTextBoxes.Add(TB);
             }
         }
 
-        private void removeRowButton_Click(object sender, EventArgs e)
+        private void RemoveRowButton_Click(object sender, EventArgs e)
         {
             if (amountTextBoxes.Count > 0)
             {
@@ -153,34 +153,34 @@ namespace FolkBok
                 dateBoxes.Remove(DP);
                 Controls.Remove(DP);
 
-                moveButton(addRowButton, up);
-                moveButton(removeRowButton, up);
-                moveLabel(sumDescriptionLabel, up);
-                moveLabel(sumLabel, up);
-                moveLabel(lineLabel, up);
+                MoveButton(addRowButton, up);
+                MoveButton(removeRowButton, up);
+                MoveLabel(sumDescriptionLabel, up);
+                MoveLabel(sumLabel, up);
+                MoveLabel(lineLabel, up);
             }
         }
 
-        private void moveButton(Button button, int direction)
+        private void MoveButton(Button button, int direction)
         {
             Point p = button.Location;
             p.Y += direction * 29;
             button.Location = p;
         }
 
-        private void moveLabel(Label label, int direction)
+        private void MoveLabel(Label label, int direction)
         {
             Point p = label.Location;
             p.Y += direction * 29;
             label.Location = p;
         }
 
-        private void updateSumLabel(object sender, EventArgs e)
+        private void UpdateSumLabel(object sender, EventArgs e)
         {
-            sumLabel.Text = getSum() + " kr";
+            sumLabel.Text = Sum + " kr";
         }
 
-        private void saveButton_Click(object sender, EventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
             string address = addressTextBox.Text;
             string ourReference = ourReferenceTextBox.Text;
@@ -191,28 +191,26 @@ namespace FolkBok
                 string description = descriptionTextBoxes.ElementAt(i).Text;
                 DateTime date = dateBoxes.ElementAt(i).Value;
                 double amount = Convert.ToDouble(amountTextBoxes.ElementAt(i).Text.Replace('.',','));
-                invoice.addLine(description, date, amount);
+                invoice.AddLine(description, date, amount);
             }
 
             InvoicePDF pdf = new InvoicePDF("Faktura " + invoice.Number, invoice);
         }
 
-        private double getSum()
+        private double Sum
         {
-            double sum = 0;
-            foreach (TextBox textBox in amountTextBoxes)
+            get
             {
-                if (textBox.Text.Length > 0)
+                double sum = 0;
+                foreach (TextBox textBox in amountTextBoxes)
                 {
-                    sum += Convert.ToDouble(textBox.Text.Replace('.', ','));
+                    if (textBox.Text.Length > 0)
+                    {
+                        sum += Convert.ToDouble(textBox.Text.Replace('.', ','));
+                    }
                 }
+                return sum;
             }
-            return sum;
-        }
-
-        private void updateLabel(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -83,8 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Account.cs" />
+    <Compile Include="Classes\DBCommunication.cs" />
+    <Compile Include="Classes\Global.cs" />
     <Compile Include="Classes\Invoice.cs" />
-    <Compile Include="Classes\Line.cs" />
     <Compile Include="Classes\PDF.cs" />
     <Compile Include="Classes\Voucher.cs" />
     <Compile Include="FolkBokDataSet.Designer.cs">
