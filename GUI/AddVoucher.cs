@@ -72,6 +72,7 @@ namespace FolkBok
             TB.TextAlign = HorizontalAlignment.Right;
             TB.Name = "debetBox" + debetBoxes.Count;
             TB.Size = new Size(194, 29);
+            TB.Text = "0";
             //TB.TabIndex = 32;
             TB.TextChanged += new EventHandler(updateDebetSumLabel);
             Controls.Add(TB);
@@ -85,6 +86,7 @@ namespace FolkBok
             TB.TextAlign = HorizontalAlignment.Right;
             TB.Name = "kreditBox" + kreditBoxes.Count;
             TB.Size = new Size(187, 29);
+            TB.Text = "0";
             //TB.TabIndex = 21;
             TB.TextChanged += new EventHandler(updateKreditSumLabel);
             Controls.Add(TB);
@@ -179,7 +181,12 @@ namespace FolkBok
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            VoucherPDF pdf = new VoucherPDF(descriptionTextBox.Text, new Voucher(1, descriptionTextBox.Text, dateTimePicker1.Value));
+            Voucher voucher = new Voucher(1, descriptionTextBox.Text, DateTime.Now, dateTimePicker1.Value);
+            for (int i=0;i<accountBoxes.Count;i++)
+            {
+                voucher.AddLine(new VoucherLine(new Account(1234, "test"), Convert.ToDouble(debetBoxes[i].Text.Replace('.',',')), Convert.ToDouble(kreditBoxes[i].Text.Replace('.', ','))));
+            }
+            VoucherPDF pdf = new VoucherPDF(descriptionTextBox.Text, voucher);
         }
     }
 }

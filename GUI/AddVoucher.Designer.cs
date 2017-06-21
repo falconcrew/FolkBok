@@ -151,6 +151,7 @@
             this.kreditBox1.Name = "kreditBox1";
             this.kreditBox1.Size = new System.Drawing.Size(187, 29);
             this.kreditBox1.TabIndex = 34;
+            this.kreditBox1.Text = "0";
             this.kreditBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.kreditBox1.TextChanged += new System.EventHandler(this.updateKreditSumLabel);
             // 
@@ -224,6 +225,7 @@
             this.kreditBox2.Name = "kreditBox2";
             this.kreditBox2.Size = new System.Drawing.Size(187, 29);
             this.kreditBox2.TabIndex = 45;
+            this.kreditBox2.Text = "0";
             this.kreditBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // debetBox2
@@ -233,6 +235,7 @@
             this.debetBox2.Name = "debetBox2";
             this.debetBox2.Size = new System.Drawing.Size(192, 29);
             this.debetBox2.TabIndex = 48;
+            this.debetBox2.Text = "0";
             this.debetBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.debetBox2.TextChanged += new System.EventHandler(this.updateDebetSumLabel);
             // 
@@ -243,6 +246,7 @@
             this.debetBox1.Name = "debetBox1";
             this.debetBox1.Size = new System.Drawing.Size(192, 29);
             this.debetBox1.TabIndex = 47;
+            this.debetBox1.Text = "0";
             this.debetBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.debetBox1.TextChanged += new System.EventHandler(this.updateDebetSumLabel);
             // 
