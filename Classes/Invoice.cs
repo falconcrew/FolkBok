@@ -8,13 +8,7 @@ namespace FolkBok
 {
     class Invoice
     {
-        private string address;
-        private DateTime date;
-        private int number;
-        private string ourReference;
-        private string yourReference;
         private List<InvoiceLine> lines;
-        private double sum;
 
         public Invoice(string address, DateTime date, string ourReference, string yourReference)
         {
@@ -29,13 +23,13 @@ namespace FolkBok
         public void AddLine(string description, DateTime date, double cost)
         {
             lines.Add(new InvoiceLine(description, date, cost));
-            sum += cost;
+            Sum += cost;
         }
 
         public void RemoveLine(int index)
         {
             InvoiceLine line = lines.ElementAt(index);
-            sum -= line.Cost;
+            Sum -= line.Cost;
             lines.Remove(line);
         }
 
@@ -43,40 +37,44 @@ namespace FolkBok
 
         private void SetNumber()
         {
-            number = 12;
+            Number = 12;
         }
 
         public string Address
         {
-            get => address;
-
-            set => address = value;
+            get;
+            private set;
         }
 
         public DateTime Date
         {
-            get => date;
-
-            set => date = value;
+            get;
+            private set;
         }
 
         public string OurReference
         {
-            get => ourReference;
-
-            set => ourReference = value;
+            get;
+            private set;
         }
 
         public string YourReference
         {
-            get => yourReference;
-
-            set => yourReference = value;
+            get;
+            private set;
         }
 
-        public int Number => number;
+        public int Number
+        {
+            get;
+            private set;
+        }
 
-        public double Sum => sum;
+        public double Sum
+        {
+            get;
+            private set;
+        }
     }
 
     class InvoiceLine
@@ -94,23 +92,20 @@ namespace FolkBok
 
         public string Description
         {
-            get => description;
-
-            set => description = value;
+            get;
+            private set;
         }
 
         public double Cost
         {
-            get => cost;
-
-            set => cost = value;
+            get;
+            private set;
         }
 
         public DateTime Date
         {
-            get => date;
-
-            set => date = value;
+            get;
+            private set;
         }
     }
 }

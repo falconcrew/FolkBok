@@ -11,18 +11,6 @@ namespace FolkBok
 {
     class Global
     {
-        private int voucherNumber;
-        private int invoiceNumber;
-        private int paymentTerm;
-        private double penaltyInterest;
-        private string address;
-        private string name;
-        private string phoneNumber;
-        private string email;
-        private string orgNumber;
-        private bool fskatt;
-        private string bankgiro;
-
         public Global()
         {
             File.Copy(Directory.GetCurrentDirectory() + "\\FolkBok.mdf", Directory.GetCurrentDirectory() + "\\Test.mdf", true);
@@ -36,17 +24,17 @@ namespace FolkBok
             reader.Read();
             try
             {
-                voucherNumber = (int)reader["VoucherNumber"];
-                invoiceNumber = (int)reader["InvoiceNumber"];
-                paymentTerm = (int)reader["PaymentTerm"];
-                penaltyInterest = (double)reader["PenaltyInterest"];
-                address = (string)reader["Address"];
-                name = (string)reader["Name"];
-                phoneNumber = (string)reader["PhoneNumber"];
-                email = (string)reader["email"];
-                orgNumber = (string)reader["OrgNumber"];
-                fskatt = (bool)reader["FSkatt"];
-                bankgiro = (string)reader["Bankgiro"];
+                VoucherNumber = (int)reader["VoucherNumber"];
+                InvoiceNumber = (int)reader["InvoiceNumber"];
+                PaymentTerm = (int)reader["PaymentTerm"];
+                PenaltyInterest = (double)reader["PenaltyInterest"];
+                Address = (string)reader["Address"];
+                Name = (string)reader["Name"];
+                PhoneNumber = (string)reader["PhoneNumber"];
+                Email = (string)reader["email"];
+                OrgNumber = (string)reader["OrgNumber"];
+                FSkatt = (bool)reader["FSkatt"];
+                Bankgiro = (string)reader["Bankgiro"];
             }
             catch
             {
@@ -70,68 +58,68 @@ namespace FolkBok
 
         public int VoucherNumber
         {
-            get => voucherNumber;
-            set => voucherNumber = value;
+            get;
+            private set;
         }
 
         public int InvoiceNumber
         {
-            get => invoiceNumber;
-            set => invoiceNumber = value;
+            get;
+            private set;
         }
 
         public int PaymentTerm
         {
-            get => paymentTerm;
-            set => paymentTerm = value;
+            get;
+            private set;
         }
 
         public double PenaltyInterest
         {
-            get => penaltyInterest;
-            set => penaltyInterest = value;
+            get;
+            private set;
         }
 
         public string Address
         {
-            get => address;
-            set => address = value;
+            get;
+            private set;
         }
 
         public string Name
         {
-            get => name;
-            set => name = value;
+            get;
+            private set;
         }
 
         public string PhoneNumber
         {
-            get => phoneNumber;
-            set => phoneNumber = value;
+            get;
+            private set;
         }
 
         public string Email
         {
-            get => email;
-            set => email = value;
+            get;
+            private set;
         }
 
         public string OrgNumber
         {
-            get => orgNumber;
-            set => orgNumber = value;
+            get;
+            private set;
         }
 
         public bool FSkatt
         {
-            get => fskatt;
-            set => fskatt = value;
+            get;
+            private set;
         }
 
         public string Bankgiro
         {
-            get => bankgiro;
-            set => bankgiro = value;
+            get;
+            private set;
         }
     }
 }

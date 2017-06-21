@@ -8,25 +8,27 @@ namespace FolkBok
 {
     class Account
     {
-        private string name;
-        private int number;
-
         public Account(int number, string name)
         {
-            this.name = name;
-            this.number = number;
+            Name = name;
+            Number = number;
         }
 
         public string Name
         {
-            get => name;
-            set => name = value;
+            get;
+            private set;
         }
 
         public int Number
         {
-            get => number;
-            set => number = value;
+            get;
+            private set;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0} {1}", Number, Name);
         }
     }
 }

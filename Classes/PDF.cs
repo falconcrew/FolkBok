@@ -239,10 +239,92 @@ namespace FolkBok
     class VoucherPDF
     {
         private string name;
+        private Voucher voucher;
 
         public VoucherPDF(string name, Voucher voucher)
         {
             this.name = name;
+            this.voucher = voucher;
+            createDocument();
+        }
+
+        private void createDocument()
+        {
+            PdfDocument document = new PdfDocument();
+            PdfPage page = document.AddPage();
+            double pointsPermm = page.Height / page.Height.Millimeter;
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XFont Times11 = new XFont("Times New Roman", 11);
+            XFont Times14 = new XFont("Times New Roman", 14);
+            XFont Times14Bold = new XFont("Times New Roman", 14, XFontStyle.Bold);
+            XFont Times20Bold = new XFont("Times New Roman", 20, XFontStyle.Bold);
+            XStringFormat left = new XStringFormat();
+            left.Alignment = XStringAlignment.Near;
+            XStringFormat right = new XStringFormat();
+            right.Alignment = XStringAlignment.Far;
+            XStringFormat center = new XStringFormat();
+            center.Alignment = XStringAlignment.Center;
+            double pageUsageWidth = page.Width - 2 * 14.5 * pointsPermm;
+            XPen black = new XPen(XColors.Black, 0.5);
+
+            byte[] data;
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("FolkBok.Images.FolkLogo.png"))
+            {
+                int count = (int)stream.Length;
+                data = new byte[count];
+                stream.Read(data, 0, count);
+            }
+            MemoryStream mstream = new MemoryStream(data);
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.StreamSource = mstream;
+            image.EndInit();
+            double topLeftX = 14.5 * pointsPermm;
+            double topLeftY = 20.5 * pointsPermm;
+            double height = 29.55 * pointsPermm;
+            double width = 71.67 * pointsPermm;
+            gfx.DrawImage(XImage.FromBitmapSource(image), topLeftX, topLeftY, width, height);
+
+            double endX = page.Width - 14.5 * pointsPermm;
+            gfx.DrawString("Verifikation Nr: " + voucher.Number, Times20Bold, XBrushes.Black, endX, topLeftY, right);
+
+            topLeftY += 10 * pointsPermm + 6;
+            gfx.DrawString("Verifikationsdatum: " + voucher.VoucherDate.ToShortDateString(), Times14Bold, XBrushes.Black, endX, topLeftY, right);
+            gfx.DrawString("Bokföringsdatum: " + voucher.AccountingDate.ToShortDateString(), Times14Bold, XBrushes.Black, endX, topLeftY + 10 * pointsPermm, right);
+            
+            topLeftY += 50 * pointsPermm - 18;
+            double midLeftX = topLeftX + pageUsageWidth * 3 / 4;
+            double midRightX = topLeftX + pageUsageWidth * 7 / 8;
+            gfx.DrawString(voucher.Description, Times14Bold, XBrushes.Black, topLeftX, topLeftY, left);
+            gfx.DrawString("Debet", Times14Bold, XBrushes.Black, midLeftX + 2, topLeftY, left);
+            gfx.DrawString("Kredit", Times14Bold, XBrushes.Black, midRightX + 2, topLeftY, left);
+
+            gfx.DrawLine(black, midLeftX, topLeftY, midLeftX, topLeftY + (voucher.Lines.Count + 1) * 21 + 18);
+            gfx.DrawLine(black, midRightX, topLeftY, midRightX, topLeftY + (voucher.Lines.Count + 1) * 21 + 18);
+
+            topLeftY += 18;
+            double[] Sum = new double[2];
+            foreach (VoucherLine line in voucher.Lines)
+            {
+                gfx.DrawLine(black, topLeftX, topLeftY, topLeftX + pageUsageWidth, topLeftY);
+                topLeftY += 3;
+                gfx.DrawString(line.Account.ToString(), Times14, XBrushes.Black, topLeftX, topLeftY, left);
+                gfx.DrawString(line.Debet.ToString(), Times14, XBrushes.Black, midRightX - 2, topLeftY, right);
+                gfx.DrawString(line.Kredit.ToString(), Times14, XBrushes.Black, endX, topLeftY, right);
+                topLeftY += 18;
+                Sum[0] += line.Debet;
+                Sum[1] += line.Kredit;
+            }
+            gfx.DrawLine(black, topLeftX, topLeftY, topLeftX + pageUsageWidth, topLeftY);
+
+            topLeftY += 3;
+            gfx.DrawString("Summa", Times14Bold, XBrushes.Black, midLeftX - 2, topLeftY, right);
+            gfx.DrawString(Sum[0].ToString(), Times14Bold, XBrushes.Black, midRightX - 2, topLeftY, right);
+            gfx.DrawString(Sum[1].ToString(), Times14Bold, XBrushes.Black, endX, topLeftY, right);
+
+            string filename = name + "Test.pdf";
+            document.Save(filename);
+            Process.Start(filename);
         }
     }
 }

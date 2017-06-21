@@ -122,6 +122,9 @@
     <EmbeddedResource Include="GUI\AddInvoice.resx">
       <DependentUpon>AddInvoice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\AddVoucher.resx">
+      <DependentUpon>AddVoucher.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

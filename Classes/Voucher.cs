@@ -8,41 +8,39 @@ namespace FolkBok
 {
     class Voucher
     {
-        private int number;
-        private string description;
-        private DateTime date;
         private List<VoucherLine> lines;
 
-        public Voucher(int number, string description, DateTime date)
+        public Voucher(int number, string description, DateTime voucherDate, DateTime accountingDate)
         {
-            this.number = number;
-            this.description = description;
-            this.date = date;
-            lines = new List<VoucherLine>();
+            Number = number;
+            Description = description;
+            VoucherDate = voucherDate;
+            AccountingDate = accountingDate;
+            Lines = new List<VoucherLine>();
         }
 
         public int Number
         {
-            get
-            {
-                return number;
-            }
+            get;
+            private set;
         }
 
         public string Description
         {
-            get
-            {
-                return description;
-            }
+            get;
+            private set;
         }
 
-        public DateTime Date
+        public DateTime VoucherDate
         {
-            get
-            {
-                return date;
-            }
+            get;
+            private set;
+        }
+
+        public DateTime AccountingDate
+        {
+            get;
+            private set;
         }
 
         public List<VoucherLine> Lines
@@ -50,6 +48,11 @@ namespace FolkBok
             get
             {
                 return lines;
+            }
+
+            private set
+            {
+                lines = value;
             }
         }
 
@@ -65,7 +68,7 @@ namespace FolkBok
         private double debet;
         private double kredit;
 
-        public VoucherLine(Account account, int debet, int kredit)
+        public VoucherLine(Account account, double debet, double kredit)
         {
             this.account = account;
             this.debet = debet;
