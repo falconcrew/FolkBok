@@ -36,6 +36,7 @@ GO
 
 CREATE TABLE Invoices (
 	ID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	Name VARCHAR(30),
 	Description TEXT,
 	Date DATE,
 	Address TEXT,

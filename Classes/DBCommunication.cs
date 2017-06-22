@@ -41,36 +41,67 @@ namespace FolkBok
             return true;
         }
 
-        public List<Invoice> Invoices
+        public List<Invoice> GetInvoices()
         {
-            get
+            List<Invoice> invoices = new List<Invoice>();
+            connection.Open();
+            cmd = new SqlCommand("select ID, Name from Invoices");
+            cmd.Connection = connection;
+            List<int> InvoiceIDs = new List<int>();
+            reader = cmd.ExecuteReader();
+                while (reader.Read())
             {
-                List<Invoice> invoices = new List<Invoice>();
-                connection.Open();
-                cmd = new SqlCommand("select * from Invoices");
-                cmd.Connection = connection;
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Invoice invoice = new Invoice((string)reader["Address"], (DateTime)reader["Date"], (string)reader["OurReference"], (string)reader["YourReference"]);
-                    }
-                }
-                connection.Close();
-                return invoices;
+                InvoiceIDs.Add((int)reader["ID"]);
             }
+            connection.Close();
+            foreach (int ID in InvoiceIDs)
+            {
+                invoices.Add(GetInvoice(ID));
+            }
+            return invoices;
         }
 
         public Invoice GetInvoice(int number)
         {
             Invoice invoice;
             connection.Open();
-            cmd = new SqlCommand("select * from Accounts where id=" + number);
+            cmd = new SqlCommand("select * from Invoices where ID=" + number);
             cmd.Connection = connection;
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            reader = cmd.ExecuteReader();
+            reader.Read();
+            invoice = new Invoice((string)reader["Address"], (DateTime)reader["Date"], (string)reader["OurReference"], (string)reader["YourReference"]);
+            reader.Close();
+            cmd.CommandText = "select Line_ID from InvoiceLines where Invoice_ID=" + number;
+            reader = cmd.ExecuteReader();
+            List<int> lineIds = new List<int>();
+            while (reader.Read())
             {
-                invoice = new Invoice((string)reader["Address"], (DateTime)reader["Date"], (string)reader["OurReference"], (string)reader["YourReference"]);
+                try
+                {
+                    lineIds.Add((int)reader["Line_ID"]);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
             }
+            reader.Close();
+            foreach (int id in lineIds)
+            {
+                try
+                {
+                    cmd.CommandText = "select * from Lines where ID=" + reader["Line_ID"];
+                    reader = cmd.ExecuteReader();
+                    reader.Read();
+                    invoice.AddLine((string)reader["Description"], (DateTime)reader["Date"], (double)reader["Amount"]);
+                    reader.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+            }
+
             connection.Close();
             return invoice;
         }
@@ -85,7 +116,7 @@ namespace FolkBok
             connection.Open();
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = String.Format("insert into Account (Name, Number) values ('{0}', {1})", account.Name, account.Number);
+            cmd.CommandText = string.Format("insert into Account (Name, Number) values ('{0}', {1})", account.Name, account.Number);
             cmd.Connection = connection;
             cmd.ExecuteNonQuery();
             connection.Close();

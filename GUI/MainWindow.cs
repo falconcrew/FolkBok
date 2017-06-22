@@ -19,18 +19,20 @@ namespace FolkBok
             InitializeComponent();
             label1.Text = String.Format("insert into Account (Name, Number) VALUES ('{0}', {1})", "Test", 1234);
 
+            //DBCommunication dbCom = new DBCommunication();
+            //dbCom.GetInvoice(2);
             //AddInvoice addInvoice = new AddInvoice();
             //addInvoice.ShowDialog();
             //Global g = new Global();
             //Console.WriteLine(g.VoucherNumber);
-            //AddVoucher addVoucher = new AddVoucher();
-            //addVoucher.ShowDialog();
+            AddVoucher addVoucher = new AddVoucher();
+            addVoucher.ShowDialog();
             //AddInvoice addInvoice = new AddInvoice();
             //addInvoice.ShowDialog();
 
             //dbSync();
 
-            Random r = new Random();
+            /*Random r = new Random();
             List<int> list1 = new List<int>();
             List<int> list2 = new List<int>();
             for (int i = 0; i < 10000; i++)
@@ -50,7 +52,7 @@ namespace FolkBok
             for(int i = 0; i < 10000; i++)
             {
                 Console.WriteLine(list1[i] + "      " + list2[i]);
-            }
+            }*/
         }
 
         private void dbSync()

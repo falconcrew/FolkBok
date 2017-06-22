@@ -103,5 +103,11 @@ namespace FolkBok
             get;
             private set;
         }
+
+        public int ID
+        {
+            get;
+            private set;
+        }
     }
 }

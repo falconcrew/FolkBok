@@ -1,0 +1,2 @@
+﻿insert into InvoiceLines (Invoice_ID, Line_ID) values ((select ID from Invoices where ID=2),(select ID from Lines where ID=1))
+insert into InvoiceLines (Invoice_ID, Line_ID) values ((select ID from Invoices where ID=2),(select ID from Lines where ID=2))

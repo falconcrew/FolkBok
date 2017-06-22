@@ -64,21 +64,36 @@ namespace FolkBok
 
     class VoucherLine
     {
-        private Account account;
-        private double debet;
-        private double kredit;
 
         public VoucherLine(Account account, double debet, double kredit)
         {
-            this.account = account;
-            this.debet = debet;
-            this.kredit = kredit;
+            Account = account;
+            Debet = debet;
+            Kredit = kredit;
         }
 
-        public Account Account => account;
+        public Account Account
+        {
+            get;
+            set;
+        }
 
-        public double Debet => debet;
+        public double Debet
+        {
+            get;
+            set;
+        }
 
-        public double Kredit => kredit;
+        public double Kredit
+        {
+            get;
+            set;
+        }
+
+        public int ID
+        {
+            get;
+            private set;
+        }
     }
 }

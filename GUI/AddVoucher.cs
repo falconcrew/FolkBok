@@ -1,8 +1,12 @@
-﻿using System;
+﻿//using MigraDoc.DocumentObjectModel;
+using PdfSharp.Pdf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +19,8 @@ namespace FolkBok
         private List<ComboBox> accountBoxes;
         private List<TextBox> debetBoxes;
         private List<TextBox> kreditBoxes;
-        List<Account> accounts;
+        private List<Account> accounts;
+        private PdfDocument doc;
 
         private const int up = -1;
         private const int down = 1;
@@ -190,6 +195,22 @@ namespace FolkBok
                 voucher.AddLine(new VoucherLine(accounts[accountBoxes[i].SelectedIndex], Convert.ToDouble(debetBoxes[i].Text.Replace('.',',')), Convert.ToDouble(kreditBoxes[i].Text.Replace('.', ','))));
             }
             VoucherPDF pdf = new VoucherPDF(descriptionTextBox.Text, voucher);
+            doc = pdf.GetDocument();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            PrintPreviewDialog printPrev = new PrintPreviewDialog();
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.DocumentName = Directory.GetCurrentDirectory() + "\\Test.pdf";
+            printPrev.Document = printDocument;
+            printPrev.ShowDialog();
+            /*string doc = Directory.GetCurrentDirectory() + "\\Test.pdf";
+            FileStream stream = new FileStream(doc, FileMode.Open);
+            StreamReader reader = new StreamReader(stream);
+            e.*/
+
+            //Document document = doc;
         }
     }
 }

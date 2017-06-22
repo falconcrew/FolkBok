@@ -240,6 +240,7 @@ namespace FolkBok
     {
         private string name;
         private Voucher voucher;
+        private PdfDocument document;
 
         public VoucherPDF(string name, Voucher voucher)
         {
@@ -250,7 +251,7 @@ namespace FolkBok
 
         private void createDocument()
         {
-            PdfDocument document = new PdfDocument();
+            document = new PdfDocument();
             PdfPage page = document.AddPage();
             double pointsPermm = page.Height / page.Height.Millimeter;
             XGraphics gfx = XGraphics.FromPdfPage(page);
@@ -325,6 +326,11 @@ namespace FolkBok
             string filename = name + "Test.pdf";
             document.Save(filename);
             Process.Start(filename);
+        }
+
+        public PdfDocument GetDocument()
+        {
+            return document;
         }
     }
 }
