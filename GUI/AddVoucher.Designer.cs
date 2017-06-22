@@ -209,10 +209,6 @@
             this.accountBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.accountBox2.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.accountBox2.FormattingEnabled = true;
-            this.accountBox2.Items.AddRange(new object[] {
-            "Test1",
-            "Test2",
-            "Test3"});
             this.accountBox2.Location = new System.Drawing.Point(12, 342);
             this.accountBox2.Name = "accountBox2";
             this.accountBox2.Size = new System.Drawing.Size(679, 29);

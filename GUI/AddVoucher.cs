@@ -15,6 +15,7 @@ namespace FolkBok
         private List<ComboBox> accountBoxes;
         private List<TextBox> debetBoxes;
         private List<TextBox> kreditBoxes;
+        List<Account> accounts;
 
         private const int up = -1;
         private const int down = 1;
@@ -22,6 +23,13 @@ namespace FolkBok
         public AddVoucher()
         {
             InitializeComponent();
+
+            accounts = new List<Account>();
+            DBCommunication DBCom = new DBCommunication();
+            accounts = DBCom.ImportAccounts();
+
+            accountBox1.Items.AddRange(accounts.ToArray());
+            accountBox2.Items.AddRange(accounts.ToArray());
 
             accountBoxes = new List<ComboBox>();
             debetBoxes = new List<TextBox>();
@@ -60,7 +68,7 @@ namespace FolkBok
             CB.Name = "accountBox" + accountBoxes.Count;
             CB.Size = new Size(679, 29);
             //CB.TabIndex = 21;
-            CB.Items.AddRange(getAccounts());
+            CB.Items.AddRange(accounts.ToArray());
             Controls.Add(CB);
             accountBoxes.Add(CB);
 
@@ -91,11 +99,6 @@ namespace FolkBok
             TB.TextChanged += new EventHandler(updateKreditSumLabel);
             Controls.Add(TB);
             kreditBoxes.Add(TB);
-        }
-
-        private object[] getAccounts()
-        {
-            return new object[] { "Hej", "på", "dig" };
         }
 
         private void RemoveRowButton_Click(object sender, EventArgs e)
@@ -184,7 +187,7 @@ namespace FolkBok
             Voucher voucher = new Voucher(1, descriptionTextBox.Text, DateTime.Now, dateTimePicker1.Value);
             for (int i=0;i<accountBoxes.Count;i++)
             {
-                voucher.AddLine(new VoucherLine(new Account(1234, "test"), Convert.ToDouble(debetBoxes[i].Text.Replace('.',',')), Convert.ToDouble(kreditBoxes[i].Text.Replace('.', ','))));
+                voucher.AddLine(new VoucherLine(accounts[accountBoxes[i].SelectedIndex], Convert.ToDouble(debetBoxes[i].Text.Replace('.',',')), Convert.ToDouble(kreditBoxes[i].Text.Replace('.', ','))));
             }
             VoucherPDF pdf = new VoucherPDF(descriptionTextBox.Text, voucher);
         }

@@ -47,7 +47,7 @@ namespace FolkBok
             {
                 List<Invoice> invoices = new List<Invoice>();
                 connection.Open();
-                cmd = new SqlCommand("select * from Accounts");
+                cmd = new SqlCommand("select * from Invoices");
                 cmd.Connection = connection;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -90,6 +90,23 @@ namespace FolkBok
             cmd.ExecuteNonQuery();
             connection.Close();
             return true;
+        }
+
+        public List<Account> ImportAccounts()
+        {
+            List<Account> accounts = new List<Account>();
+            connection.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = ("select * from Accounts");
+            cmd.Connection = connection;
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                accounts.Add(new Account(Convert.ToInt32(reader["Number"].ToString()), reader["Name"].ToString()));
+            }
+            connection.Close();
+            return accounts;
         }
     }
 }

@@ -50,7 +50,8 @@ namespace FolkBok
             connection.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = String.Format("insert into Globals (PaymentTerm, PenaltyInterest, Address, Name, PhoneNumber, Email, OrgNUmber, FSkatt, Bankgiro) values ({0}, {1}, '{2}', '{3}', '{4}', '{5}', '{6}', {7}, '{8}') where ID=1",
+            cmd.CommandText = String.Format("insert into Globals (PaymentTerm, PenaltyInterest, Address, Name, PhoneNumber, Email, OrgNUmber, FSkatt, Bankgiro) "+
+                "values ({0}, {1}, '{2}', '{3}', '{4}', '{5}', '{6}', {7}, '{8}') where ID=1",
                 PaymentTerm, PenaltyInterest, Address, Name, PhoneNumber, OrgNumber, FSkatt, Bankgiro);
             cmd.ExecuteNonQuery();
             return true;

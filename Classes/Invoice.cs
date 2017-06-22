@@ -79,10 +79,6 @@ namespace FolkBok
 
     class InvoiceLine
     {
-        private string description;
-        private double cost;
-        private DateTime date;
-
         public InvoiceLine(string description, DateTime date, double cost)
         {
             Description = description;
