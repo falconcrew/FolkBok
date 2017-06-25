@@ -13,10 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Reflection;
 using System.IO;
 using System.Windows.Media;
+using System.Windows.Forms;
 
 namespace FolkBok
 {
-    class InvoicePDF
+    public class InvoicePDF
     {
         private string name;
         private Invoice invoice;
@@ -119,7 +120,7 @@ namespace FolkBok
             {
                 gfx.DrawString(line.Description, Times11, XBrushes.Black, new System.Windows.Point(topLeftX + pointsPermm, topLeftY),left);
                 gfx.DrawString(line.Date.ToShortDateString(), Times11, XBrushes.Black, new System.Windows.Point(topLeftX + 5 * width / 8, topLeftY), left);
-                gfx.DrawString(line.Cost.ToString() + " kr", Times11, XBrushes.Black, new System.Windows.Point(topLeftX + width, topLeftY), right);
+                gfx.DrawString(line.Amount.ToString() + " kr", Times11, XBrushes.Black, new System.Windows.Point(topLeftX + width, topLeftY), right);
                 topLeftY = topLeftY + 5 * pointsPermm;
             }
 
@@ -236,25 +237,23 @@ namespace FolkBok
         }
     }
 
-    class VoucherPDF
+    public class VoucherPDF
     {
         private string name;
         private Voucher voucher;
-        private PdfDocument document;
 
         public VoucherPDF(string name, Voucher voucher)
         {
             this.name = name;
             this.voucher = voucher;
-            createDocument();
+            //createDocument();
         }
 
-        private void createDocument()
+        public void createDocument(XGraphics gfx)
         {
-            document = new PdfDocument();
+            PdfDocument document = new PdfDocument();
             PdfPage page = document.AddPage();
             double pointsPermm = page.Height / page.Height.Millimeter;
-            XGraphics gfx = XGraphics.FromPdfPage(page);
             XFont Times11 = new XFont("Times New Roman", 11);
             XFont Times14 = new XFont("Times New Roman", 14);
             XFont Times14Bold = new XFont("Times New Roman", 14, XFontStyle.Bold);
@@ -323,14 +322,11 @@ namespace FolkBok
             gfx.DrawString(Sum[0].ToString(), Times14Bold, XBrushes.Black, midRightX - 2, topLeftY, right);
             gfx.DrawString(Sum[1].ToString(), Times14Bold, XBrushes.Black, endX, topLeftY, right);
 
-            string filename = name + "Test.pdf";
-            document.Save(filename);
-            Process.Start(filename);
-        }
-
-        public PdfDocument GetDocument()
-        {
-            return document;
+            XGraphicsState state = gfx.Save();
+            
+            //string filename = name + "Test.pdf";
+            //document.Save(filename);
+            //Process.Start(filename);
         }
     }
 }

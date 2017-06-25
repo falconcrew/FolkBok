@@ -1,6 +1,6 @@
 ﻿namespace FolkBok
 {
-    partial class AddVoucher
+    partial class VoucherForm
     {
         /// <summary>
         /// Required designer variable.
@@ -111,7 +111,6 @@
             this.button3.TabIndex = 38;
             this.button3.Text = "Print preview";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button1
             // 

@@ -14,18 +14,17 @@ using System.Windows.Forms;
 
 namespace FolkBok
 {
-    public partial class AddVoucher : Form
+    public partial class VoucherForm : Form
     {
         private List<ComboBox> accountBoxes;
         private List<TextBox> debetBoxes;
         private List<TextBox> kreditBoxes;
         private List<Account> accounts;
-        private PdfDocument doc;
 
         private const int up = -1;
         private const int down = 1;
 
-        public AddVoucher()
+        public VoucherForm()
         {
             InitializeComponent();
 
@@ -44,6 +43,23 @@ namespace FolkBok
             verNumLabel.Text = 1.ToString();
         }
 
+        public VoucherForm(Voucher voucher) : this()
+        {
+            accountBox1.Text = voucher.Lines[0].Account.ToString();
+            debetBox1.Text = voucher.Lines[0].Debet.ToString();
+            kreditBox1.Text = voucher.Lines[0].Kredit.ToString();
+            accountBox1.Text = voucher.Lines[1].Account.ToString();
+            debetBox1.Text = voucher.Lines[1].Debet.ToString();
+            kreditBox1.Text = voucher.Lines[1].Kredit.ToString();
+            for (int i = 2; i < voucher.Lines.Count; i++)
+            {
+                AddRow();
+                accountBoxes[i].Text = voucher.Lines[i].Account.ToString();
+                debetBoxes[i].Text = voucher.Lines[i].Debet.ToString();
+                kreditBoxes[i].Text = voucher.Lines[i].Kredit.ToString();
+            }
+        }
+
         private void PopulateLists()
         {
             accountBoxes.Add(accountBox1);
@@ -56,6 +72,10 @@ namespace FolkBok
 
         private void AddRowButton_Click(object sender, EventArgs e)
         {
+            AddRow();
+        }
+
+        private void AddRow() {
             MoveButton(addRowButton, down);
             MoveButton(removeRowButton, down);
             MoveLabel(sumDescriptionLabel, down);
@@ -195,22 +215,6 @@ namespace FolkBok
                 voucher.AddLine(new VoucherLine(accounts[accountBoxes[i].SelectedIndex], Convert.ToDouble(debetBoxes[i].Text.Replace('.',',')), Convert.ToDouble(kreditBoxes[i].Text.Replace('.', ','))));
             }
             VoucherPDF pdf = new VoucherPDF(descriptionTextBox.Text, voucher);
-            doc = pdf.GetDocument();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            PrintPreviewDialog printPrev = new PrintPreviewDialog();
-            PrintDocument printDocument = new PrintDocument();
-            printDocument.DocumentName = Directory.GetCurrentDirectory() + "\\Test.pdf";
-            printPrev.Document = printDocument;
-            printPrev.ShowDialog();
-            /*string doc = Directory.GetCurrentDirectory() + "\\Test.pdf";
-            FileStream stream = new FileStream(doc, FileMode.Open);
-            StreamReader reader = new StreamReader(stream);
-            e.*/
-
-            //Document document = doc;
         }
     }
 }

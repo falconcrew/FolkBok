@@ -1,6 +1,6 @@
 ﻿namespace FolkBok
 {
-    partial class AddInvoice
+    partial class InvoiceForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddInvoice));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -52,8 +52,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.descriptionTextBox = new System.Windows.Forms.TextBox();
-            this.amountTextBox = new System.Windows.Forms.TextBox();
+            this.descriptionTextBox1 = new System.Windows.Forms.TextBox();
+            this.amountTextBox1 = new System.Windows.Forms.TextBox();
             this.sumDescriptionLabel = new System.Windows.Forms.Label();
             this.lineLabel = new System.Windows.Forms.Label();
             this.sumLabel = new System.Windows.Forms.Label();
@@ -337,23 +337,23 @@
             this.label8.Text = "Belopp";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // descriptionTextBox
+            // descriptionTextBox1
             // 
-            this.descriptionTextBox.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descriptionTextBox.Location = new System.Drawing.Point(10, 408);
-            this.descriptionTextBox.Name = "descriptionTextBox";
-            this.descriptionTextBox.Size = new System.Drawing.Size(679, 29);
-            this.descriptionTextBox.TabIndex = 21;
+            this.descriptionTextBox1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.descriptionTextBox1.Location = new System.Drawing.Point(10, 408);
+            this.descriptionTextBox1.Name = "descriptionTextBox1";
+            this.descriptionTextBox1.Size = new System.Drawing.Size(679, 29);
+            this.descriptionTextBox1.TabIndex = 21;
             // 
-            // amountTextBox
+            // amountTextBox1
             // 
-            this.amountTextBox.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.amountTextBox.Location = new System.Drawing.Point(895, 408);
-            this.amountTextBox.Name = "amountTextBox";
-            this.amountTextBox.Size = new System.Drawing.Size(187, 29);
-            this.amountTextBox.TabIndex = 23;
-            this.amountTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.amountTextBox.TextChanged += new System.EventHandler(this.UpdateSumLabel);
+            this.amountTextBox1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.amountTextBox1.Location = new System.Drawing.Point(895, 408);
+            this.amountTextBox1.Name = "amountTextBox1";
+            this.amountTextBox1.Size = new System.Drawing.Size(187, 29);
+            this.amountTextBox1.TabIndex = 23;
+            this.amountTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.amountTextBox1.TextChanged += new System.EventHandler(this.UpdateSumLabel);
             // 
             // sumDescriptionLabel
             // 
@@ -463,7 +463,7 @@
             this.dateTimePicker1.TabIndex = 32;
             this.dateTimePicker1.Value = new System.DateTime(2017, 6, 18, 20, 32, 45, 0);
             // 
-            // AddInvoice
+            // InvoiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -479,8 +479,8 @@
             this.Controls.Add(this.sumLabel);
             this.Controls.Add(this.lineLabel);
             this.Controls.Add(this.sumDescriptionLabel);
-            this.Controls.Add(this.amountTextBox);
-            this.Controls.Add(this.descriptionTextBox);
+            this.Controls.Add(this.amountTextBox1);
+            this.Controls.Add(this.descriptionTextBox1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -490,7 +490,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "AddInvoice";
+            this.Name = "InvoiceForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Invoice";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -526,8 +526,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox descriptionTextBox;
-        private System.Windows.Forms.TextBox amountTextBox;
+        private System.Windows.Forms.TextBox descriptionTextBox1;
+        private System.Windows.Forms.TextBox amountTextBox1;
         private System.Windows.Forms.Label sumDescriptionLabel;
         private System.Windows.Forms.Label lineLabel;
         private System.Windows.Forms.Label sumLabel;

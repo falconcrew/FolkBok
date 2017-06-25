@@ -99,17 +99,17 @@
     <Compile Include="GUI\AddAccount.Designer.cs">
       <DependentUpon>AddAccount.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\AddInvoice.cs">
+    <Compile Include="GUI\InvoiceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\AddInvoice.Designer.cs">
-      <DependentUpon>AddInvoice.cs</DependentUpon>
+    <Compile Include="GUI\InvoiceForm.Designer.cs">
+      <DependentUpon>InvoiceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\AddVoucher.cs">
+    <Compile Include="GUI\VoucherForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\AddVoucher.Designer.cs">
-      <DependentUpon>AddVoucher.cs</DependentUpon>
+    <Compile Include="GUI\VoucherForm.designer.cs">
+      <DependentUpon>VoucherForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\MainWindow.cs">
       <SubType>Form</SubType>
@@ -119,11 +119,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="GUI\AddInvoice.resx">
-      <DependentUpon>AddInvoice.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\InvoiceForm.resx">
+      <DependentUpon>InvoiceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\AddVoucher.resx">
-      <DependentUpon>AddVoucher.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\VoucherForm.resx">
+      <DependentUpon>VoucherForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

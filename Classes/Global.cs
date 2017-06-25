@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FolkBok
 {
-    class Global
+    public class Global
     {
         public Global()
         {
@@ -31,7 +31,7 @@ namespace FolkBok
                 Address = (string)reader["Address"];
                 Name = (string)reader["Name"];
                 PhoneNumber = (string)reader["PhoneNumber"];
-                Email = (string)reader["email"];
+                Email = (string)reader["Email"];
                 OrgNumber = (string)reader["OrgNumber"];
                 FSkatt = (bool)reader["FSkatt"];
                 Bankgiro = (string)reader["Bankgiro"];

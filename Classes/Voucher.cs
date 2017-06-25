@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FolkBok
 {
-    class Voucher
+    public class Voucher
     {
         private List<VoucherLine> lines;
 
@@ -22,7 +22,7 @@ namespace FolkBok
         public int Number
         {
             get;
-            private set;
+            set;
         }
 
         public string Description
@@ -62,7 +62,7 @@ namespace FolkBok
         }
     }
 
-    class VoucherLine
+    public class VoucherLine
     {
 
         public VoucherLine(Account account, double debet, double kredit)

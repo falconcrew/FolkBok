@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FolkBok
 {
-    class Account
+    public class Account
     {
         public Account(int number, string name)
         {

@@ -1,1 +1,6 @@
-﻿select * from Accounts
+﻿insert into Accounts (Number, Name) values (1000, 'Bankkonto')
+insert into Accounts (Number, Name) values (2000, 'Kassa')
+insert into Accounts (Number, Name) values (3000, 'Körersättning')
+insert into Accounts (Number, Name) values (4000, 'Reperesentation')
+insert into Accounts (Number, Name) values (5000, 'Fika')
+insert into Accounts (Number, Name) values (6000, 'Spelningsintäkter')

@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace FolkBok
 {
-    class Invoice
+    public class Invoice
     {
         private List<InvoiceLine> lines;
 
-        public Invoice(string address, DateTime date, string ourReference, string yourReference)
+        public Invoice(string name, string address, DateTime date, string ourReference, string yourReference)
         {
+            Name = name;
             Address = address;
             Date = date;
             OurReference = ourReference;
@@ -20,16 +21,16 @@ namespace FolkBok
             lines = new List<InvoiceLine>();
         }
 
-        public void AddLine(string description, DateTime date, double cost)
+        public void AddLine(string description, DateTime date, double amount)
         {
-            lines.Add(new InvoiceLine(description, date, cost));
-            Sum += cost;
+            lines.Add(new InvoiceLine(description, date, amount));
+            Sum += amount;
         }
 
         public void RemoveLine(int index)
         {
             InvoiceLine line = lines.ElementAt(index);
-            Sum -= line.Cost;
+            Sum -= line.Amount;
             lines.Remove(line);
         }
 
@@ -38,6 +39,12 @@ namespace FolkBok
         private void SetNumber()
         {
             Number = 12;
+        }
+
+        public string Name
+        {
+            get;
+            private set;
         }
 
         public string Address
@@ -67,7 +74,7 @@ namespace FolkBok
         public int Number
         {
             get;
-            private set;
+            set;
         }
 
         public double Sum
@@ -77,13 +84,13 @@ namespace FolkBok
         }
     }
 
-    class InvoiceLine
+    public class InvoiceLine
     {
-        public InvoiceLine(string description, DateTime date, double cost)
+        public InvoiceLine(string description, DateTime date, double amount)
         {
             Description = description;
             Date = date;
-            Cost = cost;
+            Amount = amount;
         }
 
         public string Description
@@ -92,7 +99,7 @@ namespace FolkBok
             private set;
         }
 
-        public double Cost
+        public double Amount
         {
             get;
             private set;

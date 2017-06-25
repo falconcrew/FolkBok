@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace FolkBok
 {
-    public partial class AddInvoice : Form
+    public partial class InvoiceForm : Form
     {
         private int invoiceNumber;
         private DateTime invoiceDate;
@@ -26,17 +26,34 @@ namespace FolkBok
         private const int up = -1;
         private const int down = 1;
         
-        public AddInvoice()
+        public InvoiceForm()
         {
             InitializeComponent();
             ImportInvoiceSettings();
             SetupLabels();
             descriptionTextBoxes = new List<TextBox>();
-            descriptionTextBoxes.Add(descriptionTextBox);
+            descriptionTextBoxes.Add(descriptionTextBox1);
             dateBoxes = new List<DateTimePicker>();
             dateBoxes.Add(dateTimePicker1);
             amountTextBoxes = new List<TextBox>();
-            amountTextBoxes.Add(amountTextBox);
+            amountTextBoxes.Add(amountTextBox1);
+        }
+
+        public InvoiceForm(Invoice invoice) : this()
+        {
+            ourReferenceTextBox.Text = invoice.OurReference;
+            yourReferenceTextBox.Text = invoice.YourReference;
+            addressTextBox.AppendText(invoice.Address);
+            descriptionTextBox1.Text = invoice.Lines[0].Description;
+            dateTimePicker1.Value = invoice.Lines[0].Date;
+            amountTextBox1.Text = invoice.Lines[0].Amount.ToString();
+            for (int i = 1; i < invoice.Lines.Count; i++)
+            {
+                AddRow();
+                descriptionTextBoxes[i].Text = invoice.Lines[i].Description;
+                dateBoxes[i].Value = invoice.Lines[i].Date;
+                amountTextBoxes[i].Text = invoice.Lines[i].Amount.ToString();
+            }
         }
 
         private void SetupLabels()
@@ -61,6 +78,10 @@ namespace FolkBok
 
         private void AddRowButton_Click(object sender, EventArgs e)
         {
+            AddRow();
+        }
+
+        private void AddRow() {
             MoveButton(addRowButton, down);
             MoveButton(removeRowButton, down);
             MoveLabel(sumDescriptionLabel, down);
@@ -151,7 +172,7 @@ namespace FolkBok
             string address = addressTextBox.Text;
             string ourReference = ourReferenceTextBox.Text;
             string yourReference = yourReferenceTextBox.Text;
-            Invoice invoice = new Invoice(address, invoiceDate, ourReference, yourReference);
+            Invoice invoice = new Invoice("Name", address, invoiceDate, ourReference, yourReference);
             for (int i = 0; i < descriptionTextBoxes.Count; i++)
             {
                 string description = descriptionTextBoxes.ElementAt(i).Text;

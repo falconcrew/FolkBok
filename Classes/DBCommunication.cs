@@ -6,10 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FolkBok
 {
-    class DBCommunication
+    public class DBCommunication
     {
         private SqlConnection connection;
         private SqlCommand cmd;
@@ -27,91 +28,110 @@ namespace FolkBok
             cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.Connection = connection;
-            cmd.CommandText = String.Format("insert into Invoices (Date, Address, OurReference, YourReference, Sum) values ('{0}', '{1}', '{2}', '{3}', {4})", invoice.Date, invoice.Address, invoice.OurReference, invoice.YourReference, invoice.Sum);
-            cmd.ExecuteNonQuery();
+            cmd.CommandText = String.Format("insert into Invoices (Name, Date, Address, OurReference, YourReference) output inserted.ID values" +
+                " ('{0}', '{1}', '{2}', '{3}', '{4}') output inserted.ID",
+                invoice.Name, invoice.Date, invoice.Address, invoice.OurReference, invoice.YourReference, invoice.Sum);
+            reader = cmd.ExecuteReader();
+            reader.Read();
+            invoice.Number = (int)reader["ID"];
+            reader.Close();
             int test = (int)cmd.ExecuteScalar();
             List<int> DBLines = new List<int>();
             foreach (InvoiceLine line in invoice.Lines)
             {
-                cmd.CommandText = String.Format("insert into InvoiceLines (Description, Date, Amount) values ('{0}, {1}, {2}')");
+                cmd.CommandText = String.Format("insert into Lines (Description, Date, Amount) output inserted.ID values " +
+                    "('{0}', '{1}', {2})", line.Description, line.Date.ToShortDateString(), line.Amount);
                 reader = cmd.ExecuteReader();
-                //reader
+                reader.Read();
+                DBLines.Add((int)reader["ID"]);
+                reader.Close();
             }
             connection.Close();
             return true;
         }
 
-        public List<Invoice> GetInvoices()
+        public bool GetInvoices(ref List<string> invoiceNames, ref List<int> invoiceIDs)
         {
-            List<Invoice> invoices = new List<Invoice>();
             connection.Open();
-            cmd = new SqlCommand("select ID, Name from Invoices");
+            cmd = new SqlCommand("select ID from Invoices");
             cmd.Connection = connection;
             List<int> InvoiceIDs = new List<int>();
             reader = cmd.ExecuteReader();
-                while (reader.Read())
-            {
-                InvoiceIDs.Add((int)reader["ID"]);
-            }
-            connection.Close();
-            foreach (int ID in InvoiceIDs)
-            {
-                invoices.Add(GetInvoice(ID));
-            }
-            return invoices;
-        }
-
-        public Invoice GetInvoice(int number)
-        {
-            Invoice invoice;
-            connection.Open();
-            cmd = new SqlCommand("select * from Invoices where ID=" + number);
-            cmd.Connection = connection;
-            reader = cmd.ExecuteReader();
-            reader.Read();
-            invoice = new Invoice((string)reader["Address"], (DateTime)reader["Date"], (string)reader["OurReference"], (string)reader["YourReference"]);
-            reader.Close();
-            cmd.CommandText = "select Line_ID from InvoiceLines where Invoice_ID=" + number;
-            reader = cmd.ExecuteReader();
-            List<int> lineIds = new List<int>();
             while (reader.Read())
             {
-                try
-                {
-                    lineIds.Add((int)reader["Line_ID"]);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
+                invoiceIDs.Add((int)reader["ID"]);
+                invoiceNames.Add((string)reader["Name"]);
             }
-            reader.Close();
-            foreach (int id in lineIds)
-            {
-                try
-                {
-                    cmd.CommandText = "select * from Lines where ID=" + reader["Line_ID"];
-                    reader = cmd.ExecuteReader();
-                    reader.Read();
-                    invoice.AddLine((string)reader["Description"], (DateTime)reader["Date"], (double)reader["Amount"]);
-                    reader.Close();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
-            }
-
             connection.Close();
-            return invoice;
-        }
-
-        public bool addVoucher(Voucher voucher)
-        {
             return true;
         }
 
-        public bool addAccount(Account account)
+        public Invoice GetInvoice(int number)
+        {;
+            try
+            {
+                connection.Open();
+                cmd = new SqlCommand("select * from Invoices where ID=" + number);
+                cmd.Connection = connection;
+                reader = cmd.ExecuteReader();
+                reader.Read();
+                Invoice invoice = new Invoice((string)reader["Name"], (string)reader["Address"], (DateTime)reader["Date"],
+                    (string)reader["OurReference"], (string)reader["YourReference"]);
+                reader.Close();
+                cmd.CommandText = "select Line_ID from InvoiceLines where Invoice_ID=" + number;
+                reader = cmd.ExecuteReader();
+                List<int> lineIds = new List<int>();
+                while (reader.Read())
+                {
+                    lineIds.Add((int)reader["Line_ID"]);
+                }
+                reader.Close();
+                foreach (int id in lineIds)
+                {
+                    cmd.CommandText = "select * from Lines where ID=" + id;
+                    reader = cmd.ExecuteReader();
+                    reader.Read();
+                    invoice.AddLine((string)reader["Description"], Convert.ToDateTime(reader["Date"]), Convert.ToDouble(reader["Amount"]));
+                    reader.Close();
+                }
+                connection.Close();
+                return invoice;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            return null;
+        }
+
+        public bool AddVoucher(Voucher voucher)
+        {
+            connection.Open();
+            cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = connection;
+            cmd.CommandText = String.Format("insert into Vouchers (Description, AccountingDate, VoucherDate) output inserted.ID values" +
+                " ('{0}', '{1}', '{2}') output inserted.ID", 
+                voucher.Description, voucher.AccountingDate.ToShortDateString(), voucher.VoucherDate.ToShortDateString());
+            reader = cmd.ExecuteReader();
+            reader.Read();
+            voucher.Number = (int)reader["ID"];
+            reader.Close();
+            int test = (int)cmd.ExecuteScalar();
+            List<int> DBLines = new List<int>();
+            foreach (VoucherLine line in voucher.Lines)
+            {
+                cmd.CommandText = String.Format("insert into Lines (Account, Debet, Kredit) output inserted.ID values ({0}, {1}, {2})", line.Account, line.Debet, line.Kredit);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+                DBLines.Add((int)reader["ID"]);
+                reader.Close();
+            }
+            connection.Close();
+            return true;
+        }
+
+        public bool AddAccount(Account account)
         {
             connection.Open();
             cmd = new SqlCommand();

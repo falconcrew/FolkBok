@@ -17,16 +17,16 @@ namespace FolkBok
         public MainWindow()
         {
             InitializeComponent();
-            label1.Text = String.Format("insert into Account (Name, Number) VALUES ('{0}', {1})", "Test", 1234);
+            label1.Text = String.Format("insert into Account (Name, Number) VALUES ('{0}', {1})", "Test", DateTime.Now.ToShortDateString());
 
-            //DBCommunication dbCom = new DBCommunication();
-            //dbCom.GetInvoice(2);
-            //AddInvoice addInvoice = new AddInvoice();
-            //addInvoice.ShowDialog();
+            DBCommunication dbCom = new DBCommunication();
+            Invoice i = dbCom.GetInvoice(2);
+            InvoiceForm InvoiceForm = new InvoiceForm(i);
+            InvoiceForm.ShowDialog();
             //Global g = new Global();
             //Console.WriteLine(g.VoucherNumber);
-            AddVoucher addVoucher = new AddVoucher();
-            addVoucher.ShowDialog();
+            //VoucherForm VoucherForm = new VoucherForm();
+            //VoucherForm.ShowDialog();
             //AddInvoice addInvoice = new AddInvoice();
             //addInvoice.ShowDialog();
 
