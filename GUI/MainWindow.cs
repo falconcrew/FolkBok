@@ -14,15 +14,25 @@ namespace FolkBok
 {
     public partial class MainWindow : Form
     {
+        private int height;
+        private int width;
+
+        private double listViewHeight;
+        private double[] listViewWidth = new double[3];
+
         public MainWindow()
         {
             InitializeComponent();
-            label1.Text = String.Format("insert into Account (Name, Number) VALUES ('{0}', {1})", "Test", DateTime.Now.ToShortDateString());
+            height = ClientSize.Height;
+            width = ClientSize.Width;
 
-            DBCommunication dbCom = new DBCommunication();
-            Invoice i = dbCom.GetInvoice(2);
-            InvoiceForm InvoiceForm = new InvoiceForm(i);
-            InvoiceForm.ShowDialog();
+            listViewWidth[0] = listView1.Width;
+            listViewWidth[1] = listView2.Width;
+            listViewWidth[2] = listView3.Width;
+            
+            listView1.View = View.Details;
+            listView1.FullRowSelect = true;
+
             //Global g = new Global();
             //Console.WriteLine(g.VoucherNumber);
             //VoucherForm VoucherForm = new VoucherForm();
@@ -53,25 +63,19 @@ namespace FolkBok
             {
                 Console.WriteLine(list1[i] + "      " + list2[i]);
             }*/
+
+            ImportAccounts();
         }
 
-        private void dbSync()
+        private void ImportAccounts()
         {
-            SqlConnection connection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\almar\Documents\FolkBok\FolkBok.mdf; Integrated Security = True; Connect Timeout = 30");
-            connection.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "insert into Accounts (Name, Number) VALUES ('Test', 123)";
-            cmd.Connection = connection;
-            cmd.ExecuteNonQuery();
-            cmd = new SqlCommand("select * from Accounts");
-            cmd.Connection = connection;
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            DBCommunication DBCom = new DBCommunication();
+            foreach(Account a in DBCom.ImportAccounts())
             {
-                while (reader.Read())
-                {
-                    Console.WriteLine(reader["Name"] + " " + reader["Number"]);
-                }
+                ListViewItem item = new ListViewItem(a.Number.ToString());
+                item.SubItems.Add(a.Name);
+                item.SubItems.Add(a.Balance.ToString());
+                listView1.Items.Add(item);
             }
         }
 
@@ -116,6 +120,38 @@ namespace FolkBok
                 pl = less;
             }
             return pl;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //DBCommunication dbCom = new DBCommunication();
+            //Invoice i = dbCom.GetInvoice(2);
+            InvoiceForm InvoiceForm = new InvoiceForm();
+            InvoiceForm.ShowDialog();
+        }
+
+        private void ChangeSize(object sender, EventArgs e)
+        {
+            int newHeight = ClientSize.Height;
+            int newWidth = ClientSize.Width;
+            double heightScalingFactor = (double) newHeight / height;
+            double widthScalingFactor = (double) newWidth / width;
+            height = newHeight;
+            width = newWidth;
+            listViewWidth[0] *= widthScalingFactor;
+            listViewWidth[1] *= widthScalingFactor;
+            listViewWidth[2] *= widthScalingFactor;
+            double addWidth = (width - listViewWidth[0] - listViewWidth[1] - listViewWidth[2] - 42) / 3;
+            listViewWidth[0] += addWidth;
+            listViewWidth[1] += addWidth;
+            listViewWidth[2] += addWidth;
+            listViewHeight = height - tableLayoutPanel1.Location.Y - 3 - 12;
+            listView1.Height = (int)Math.Round(listViewHeight);
+            listView1.Width = (int)Math.Round(listViewWidth[0]);
+            listView2.Height = (int)Math.Round(listViewHeight);
+            listView2.Width = (int)Math.Round(listViewWidth[1]);
+            listView3.Height = (int)Math.Round(listViewHeight);
+            listView3.Width = (int)Math.Round(listViewWidth[2]);
         }
     }
 }
