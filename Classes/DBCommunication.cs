@@ -192,7 +192,7 @@ namespace FolkBok
             reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                accounts.Add(new Account(Convert.ToInt32(reader["Number"].ToString()), reader["Name"].ToString()));
+                accounts.Add(new Account(Convert.ToInt32(reader["Number"]), reader["Name"].ToString(), Convert.ToDouble(reader["Balance"])));
             }
             connection.Close();
             return accounts;

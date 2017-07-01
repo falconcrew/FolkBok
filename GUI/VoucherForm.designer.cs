@@ -315,7 +315,7 @@
             this.debetSumLabel.Text = "0 kr";
             this.debetSumLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // AddVoucher
+            // VoucherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -345,8 +345,9 @@
             this.Controls.Add(this.verNumLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "AddVoucher";
-            this.Text = "AddVoucher";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "VoucherForm";
+            this.Text = "Voucher";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.folkBokDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.folkBokDataSetBindingSource)).EndInit();

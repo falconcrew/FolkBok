@@ -14,10 +14,15 @@ namespace FolkBok
 {
     public partial class MainWindow : Form
     {
+        private int height;
+        private int width;
+
+        private double listViewHeight;
+        private double[] listViewWidth = new double[3];
+
         public MainWindow()
         {
             InitializeComponent();
-
             Global.Init();
 
             DBCommunication dbCom = new DBCommunication();
@@ -26,6 +31,19 @@ namespace FolkBok
             //InvoiceForm.ShowDialog();
             //Voucher v = dbCom.GetVoucher(1);
             //VoucherForm VoucherForm = new VoucherForm(v);
+            height = ClientSize.Height;
+            width = ClientSize.Width;
+
+            listViewWidth[0] = listView1.Width;
+            listViewWidth[1] = listView2.Width;
+            listViewWidth[2] = listView3.Width;
+            
+            listView1.View = View.Details;
+            listView1.FullRowSelect = true;
+
+            //Global g = new Global();
+            //Console.WriteLine(g.VoucherNumber);
+            //VoucherForm VoucherForm = new VoucherForm();
             //VoucherForm.ShowDialog();
             //AddInvoice addInvoice = new AddInvoice();
             //addInvoice.ShowDialog();
@@ -53,6 +71,20 @@ namespace FolkBok
             {
                 Console.WriteLine(list1[i] + "      " + list2[i]);
             }*/
+
+            ImportAccounts();
+        }
+        
+        private void ImportAccounts()
+        {
+            DBCommunication DBCom = new DBCommunication();
+            foreach(Account a in DBCom.ImportAccounts())
+            {
+                ListViewItem item = new ListViewItem(a.Number.ToString());
+                item.SubItems.Add(a.Name);
+                item.SubItems.Add(a.Balance.ToString());
+                listView1.Items.Add(item);
+            }
         }
 
         private List<int> quickSort(List<int> pl)
@@ -96,6 +128,38 @@ namespace FolkBok
                 pl = less;
             }
             return pl;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //DBCommunication dbCom = new DBCommunication();
+            //Invoice i = dbCom.GetInvoice(2);
+            InvoiceForm InvoiceForm = new InvoiceForm();
+            InvoiceForm.ShowDialog();
+        }
+
+        private void ChangeSize(object sender, EventArgs e)
+        {
+            int newHeight = ClientSize.Height;
+            int newWidth = ClientSize.Width;
+            double heightScalingFactor = (double) newHeight / height;
+            double widthScalingFactor = (double) newWidth / width;
+            height = newHeight;
+            width = newWidth;
+            listViewWidth[0] *= widthScalingFactor;
+            listViewWidth[1] *= widthScalingFactor;
+            listViewWidth[2] *= widthScalingFactor;
+            double addWidth = (width - listViewWidth[0] - listViewWidth[1] - listViewWidth[2] - 42) / 3;
+            listViewWidth[0] += addWidth;
+            listViewWidth[1] += addWidth;
+            listViewWidth[2] += addWidth;
+            listViewHeight = height - tableLayoutPanel1.Location.Y - 3 - 12;
+            listView1.Height = (int)Math.Round(listViewHeight);
+            listView1.Width = (int)Math.Round(listViewWidth[0]);
+            listView2.Height = (int)Math.Round(listViewHeight);
+            listView2.Width = (int)Math.Round(listViewWidth[1]);
+            listView3.Height = (int)Math.Round(listViewHeight);
+            listView3.Width = (int)Math.Round(listViewWidth[2]);
         }
     }
 }
