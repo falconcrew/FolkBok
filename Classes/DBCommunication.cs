@@ -67,7 +67,7 @@ namespace FolkBok
         }
 
         public Invoice GetInvoice(int number)
-        {;
+        {
             try
             {
                 connection.Open();
@@ -129,6 +129,44 @@ namespace FolkBok
             }
             connection.Close();
             return true;
+        }
+
+        public Voucher GetVoucher(int number)
+        {
+            try
+            {
+                connection.Open();
+                cmd = new SqlCommand("select * from Vouchers where ID=" + number);
+                cmd.Connection = connection;
+                reader = cmd.ExecuteReader();
+                reader.Read();
+                Voucher voucher = new Voucher((int)reader["ID"], (string)reader["Description"], (DateTime)reader["VoucherDate"], (DateTime)reader["AccountingDate"]);
+                reader.Close();
+                cmd.CommandText = "select Line_ID from VoucherLines where Voucher_ID=" + number;
+                reader = cmd.ExecuteReader();
+                List<int> lineIds = new List<int>();
+                while (reader.Read())
+                {
+                    lineIds.Add((int)reader["Line_ID"]);
+                }
+                reader.Close();
+                List<Account> accounts = ImportAccounts();
+                foreach (int id in lineIds)
+                {
+                    cmd.CommandText = "select * from Lines where ID=" + id;
+                    reader = cmd.ExecuteReader();
+                    reader.Read();
+                    voucher.AddLine(accounts[(int)reader["ID"]], (double)reader["Debet"], (double)reader["Kredit"]);
+                    reader.Close();
+                }
+                connection.Close();
+                return voucher;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            return null;
         }
 
         public bool AddAccount(Account account)

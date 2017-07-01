@@ -17,15 +17,15 @@ namespace FolkBok
         public MainWindow()
         {
             InitializeComponent();
-            label1.Text = String.Format("insert into Account (Name, Number) VALUES ('{0}', {1})", "Test", DateTime.Now.ToShortDateString());
+
+            Global.Init();
 
             DBCommunication dbCom = new DBCommunication();
-            Invoice i = dbCom.GetInvoice(2);
-            InvoiceForm InvoiceForm = new InvoiceForm(i);
-            InvoiceForm.ShowDialog();
-            //Global g = new Global();
-            //Console.WriteLine(g.VoucherNumber);
-            //VoucherForm VoucherForm = new VoucherForm();
+            //Invoice i = dbCom.GetInvoice(2);
+            //InvoiceForm InvoiceForm = new InvoiceForm(i);
+            //InvoiceForm.ShowDialog();
+            //Voucher v = dbCom.GetVoucher(1);
+            //VoucherForm VoucherForm = new VoucherForm(v);
             //VoucherForm.ShowDialog();
             //AddInvoice addInvoice = new AddInvoice();
             //addInvoice.ShowDialog();
@@ -53,26 +53,6 @@ namespace FolkBok
             {
                 Console.WriteLine(list1[i] + "      " + list2[i]);
             }*/
-        }
-
-        private void dbSync()
-        {
-            SqlConnection connection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\almar\Documents\FolkBok\FolkBok.mdf; Integrated Security = True; Connect Timeout = 30");
-            connection.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "insert into Accounts (Name, Number) VALUES ('Test', 123)";
-            cmd.Connection = connection;
-            cmd.ExecuteNonQuery();
-            cmd = new SqlCommand("select * from Accounts");
-            cmd.Connection = connection;
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    Console.WriteLine(reader["Name"] + " " + reader["Number"]);
-                }
-            }
         }
 
         private List<int> quickSort(List<int> pl)

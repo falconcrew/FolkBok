@@ -56,9 +56,9 @@ namespace FolkBok
             }
         }
 
-        public void AddLine(VoucherLine line)
+        public void AddLine(Account account, double debet, double kredit)
         {
-            lines.Add(line);
+            lines.Add(new VoucherLine(account, debet, kredit));
         }
     }
 

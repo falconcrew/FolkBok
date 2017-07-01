@@ -212,7 +212,7 @@ namespace FolkBok
             Voucher voucher = new Voucher(1, descriptionTextBox.Text, DateTime.Now, dateTimePicker1.Value);
             for (int i=0;i<accountBoxes.Count;i++)
             {
-                voucher.AddLine(new VoucherLine(accounts[accountBoxes[i].SelectedIndex], Convert.ToDouble(debetBoxes[i].Text.Replace('.',',')), Convert.ToDouble(kreditBoxes[i].Text.Replace('.', ','))));
+                voucher.AddLine(accounts[accountBoxes[i].SelectedIndex], Convert.ToDouble(debetBoxes[i].Text.Replace('.',',')), Convert.ToDouble(kreditBoxes[i].Text.Replace('.', ',')));
             }
             VoucherPDF pdf = new VoucherPDF(descriptionTextBox.Text, voucher);
         }

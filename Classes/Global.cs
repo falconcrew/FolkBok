@@ -9,21 +9,22 @@ using System.Threading.Tasks;
 
 namespace FolkBok
 {
-    public class Global
+    public static class Global
     {
-        public Global()
+        private static string ConnectionString = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = "
+                + Directory.GetCurrentDirectory() + "\\FolkBok.mdf; Integrated Security = True; Connect Timeout = 30";
+
+        public static void Init()
         {
-            File.Copy(Directory.GetCurrentDirectory() + "\\FolkBok.mdf", Directory.GetCurrentDirectory() + "\\Test.mdf", true);
-            SqlConnection connection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = "
-                + Directory.GetCurrentDirectory() + "\\Test.mdf; Integrated Security = True; Connect Timeout = 30");
+            SqlConnection connection = new SqlConnection(ConnectionString);
             connection.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
             cmd.CommandText = String.Format("select * from Globals");
-            SqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
             try
             {
+                SqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
                 VoucherNumber = (int)reader["VoucherNumber"];
                 InvoiceNumber = (int)reader["InvoiceNumber"];
                 PaymentTerm = (int)reader["PaymentTerm"];
@@ -35,18 +36,18 @@ namespace FolkBok
                 OrgNumber = (string)reader["OrgNumber"];
                 FSkatt = (bool)reader["FSkatt"];
                 Bankgiro = (string)reader["Bankgiro"];
+                reader.Close();
             }
             catch
             {
-                
+
             }
             connection.Close();
         }
 
-        public bool updateInformation()
+        public static bool UpdateInformation()
         {
-            SqlConnection connection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = "
-                + Directory.GetCurrentDirectory() + "\\FolkBok.mdf; Integrated Security = True; Connect Timeout = 30");
+            SqlConnection connection = new SqlConnection(ConnectionString);
             connection.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
@@ -57,70 +58,70 @@ namespace FolkBok
             return true;
         }
 
-        public int VoucherNumber
+        public static int VoucherNumber
         {
             get;
-            private set;
+            set;
         }
 
-        public int InvoiceNumber
+        public static int InvoiceNumber
         {
             get;
-            private set;
+            set;
         }
 
-        public int PaymentTerm
+        public static int PaymentTerm
         {
             get;
-            private set;
+            set;
         }
 
-        public double PenaltyInterest
+        public static double PenaltyInterest
         {
             get;
-            private set;
+            set;
         }
 
-        public string Address
+        public static string Address
         {
             get;
-            private set;
+            set;
         }
 
-        public string Name
+        public static string Name
         {
             get;
-            private set;
+            set;
         }
 
-        public string PhoneNumber
+        public static string PhoneNumber
         {
             get;
-            private set;
+            set;
         }
 
-        public string Email
+        public static string Email
         {
             get;
-            private set;
+            set;
         }
 
-        public string OrgNumber
+        public static string OrgNumber
         {
             get;
-            private set;
+            set;
         }
 
-        public bool FSkatt
+        public static bool FSkatt
         {
             get;
-            private set;
+            set;
         }
 
-        public string Bankgiro
+        public static string Bankgiro
         {
             get;
-            private set;
+            set;
         }
     }
 }
