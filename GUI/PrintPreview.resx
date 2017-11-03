@@ -117,11 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="FolkLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\FolkLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolStripButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACoAAAAjCAYAAADizJiTAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOlSURBVFhH7ZfJS1tRFMbfJt0ZcKMFIYILu9GNf4JUugqF
+        0qUo0o3LEBDquHEjIq3gxgHSOuAcxQHnOM/zRo0xzhLniFFMbExO7zm+Bw97qyZ9TwL1g48k5HLOj3vP
+        Pfde4ZnSV1dXQ319vaKuqqoCjH2fQhnp3W43KK2bm5v/E/QDs1NFUCezBhP9qz4yg4qg6DeY6F/1CvoK
+        qrReQZVWwKBRUVGf4uPjM3iOiIj4yYaoChoXF/eVlxuNbATJpKuoqPDY7XbgubS0lIKpCbq2tsbNjS4r
+        K3Mjo6DX6028AZIl0OTkZEhNTVXUGPMp0I2NDUBGIScnx2symeBvRtCioiJVzcsrNzIKy8vLfnElQlbI
+        GFKgWAKDg4MwMjICMzMzMDQ0BIuLi6EHOjAwAF6vF3p6esh+vx96e3vvQSsrK/3T09MQCh4fH4fCwkJo
+        a2sjwIKCApphZBQyMzO9DQ0NwHNtbS3gE+QlzMsvGRkfBU1JSaH28RKuqanhMqADAjUajbQMShnbjiqg
+        NpuNCt5qtXLHPtdYhyifzweRkZHKgsbGxlJwlMVi4T59H7M8ZmNjoxgJIC0tTVlQg8FAga+vr6Guro4s
+        QUi/H1oOKo2Tvm9vb1O85uZmZUH7+/sp8O7uLtUXzir2vL6+Pmoj2PO6u7uhq6sLOjs7oaOjA9rb26nN
+        tLa2QktLC5jNZgJramqCsbExind5eQkajeZ5oAkJCYaYmBhHdHQ0PHR4eDhotVq4vb2lwDijR0dHcHx8
+        DCcnJ3B2dgbn5+fgdDrh4uKCErtcLri6uqKxeDvCW5fH46EY2Mzv7u6oPiUlJiYSqE6n+yM/GtmQkY0h
+        ZTB/45nNqlWMSTOHvVVuXFLpMxDjqYMqKSlx8fLKjGxPiy2jHQPijCwtLdHZu7CwAPPz8zA3Nwezs7N0
+        LuPJMjU1BZOTkzAxMUG7G5d4dHQUhoeH6dyWl43D4SBQdr77WJq399mCVFhY2LvDw0MKiKArKyuwurpK
+        LWp9fZ1aFt4X8d64ubkJW1tbtFF2dnZgb28P9vf34eDggKAwDpYNlszp6SmVgyR2L/0ipgxOrMkbxViU
+        lN22FTOuhiR2hJrFlMGJtRKLGEsRYV3iRsJNhZbErnVYp0G/RLWsFn+Jsaj95ObmPmp2EydnZ2eTs7Ky
+        yKy9kPE7/p+Xlwfl5eViZKAyYA+592LewJSUlPRZ3kbUVnFx8XcxdWBKT0//gbv2pZyfn28TU3MkCL8B
+        I4Rsyuu4ziMAAAAASUVORK5CYII=
+</value>
   </data>
-  <data name="PrinterIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\PrinterIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+  <metadata name="printDocument1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>122, 17</value>
+  </metadata>
 </root>

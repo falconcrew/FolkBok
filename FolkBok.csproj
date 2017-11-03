@@ -105,6 +105,12 @@
     <Compile Include="GUI\InvoiceForm.Designer.cs">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\PrintPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\PrintPreview.Designer.cs">
+      <DependentUpon>PrintPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\VoucherForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +127,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUI\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\PrintPreview.resx">
+      <DependentUpon>PrintPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\VoucherForm.resx">
       <DependentUpon>VoucherForm.cs</DependentUpon>
@@ -170,6 +179,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>FolkBok.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\PrinterIcon.bmp" />
+    <EmbeddedResource Include="Images\PrinterIcon.png" />
     <EmbeddedResource Include="Images\FolkLogo.png" />
   </ItemGroup>
   <ItemGroup>

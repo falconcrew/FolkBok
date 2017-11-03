@@ -31,8 +31,9 @@ namespace FolkBok
 
         private void createDocument()
         {
-            PdfDocument document = new PdfDocument();
-            PdfPage page = document.AddPage();
+            PdfDocument pdfDocument = new PdfDocument();
+            PdfPage page = pdfDocument.AddPage();
+
             double pointsPermm = page.Height / page.Height.Millimeter;
             XGraphics gfx = XGraphics.FromPdfPage(page);
             XFont Times11 = new XFont("Times New Roman", 11);
@@ -217,7 +218,7 @@ namespace FolkBok
             gfx.DrawString("666-4791", Times11Bold, XBrushes.Black, p1, center);
 
             string filename = name + ".pdf";
-            document.Save(filename);
+            pdfDocument.Save(filename);
             Process.Start(filename);
         }
 
@@ -234,6 +235,13 @@ namespace FolkBok
                 result += "," + dec;
             }
             return result + " kr";
+        }
+
+        public PrintPreviewDialog createPrintPreview()
+        {
+            PrintPreviewDialog printPrev = new PrintPreviewDialog();
+            Graphics pgfx = printPrev.CreateGraphics();
+            return printPrev;
         }
     }
 

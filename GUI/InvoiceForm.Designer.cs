@@ -59,12 +59,13 @@
             this.sumLabel = new System.Windows.Forms.Label();
             this.addRowButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.printButton = new System.Windows.Forms.Button();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.button3 = new System.Windows.Forms.Button();
+            this.printPreviewButton = new System.Windows.Forms.Button();
             this.removeRowButton = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -238,8 +239,8 @@
             this.tableLayoutPanel1.Controls.Add(this.paymentTermLabel, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label11, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.invoiceNumberLabel, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.yourReferenceTextBox, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.ourReferenceTextBox, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.yourReferenceTextBox, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.ourReferenceTextBox, 1, 6);
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 182);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -277,7 +278,7 @@
             // 
             this.yourReferenceTextBox.BackColor = System.Drawing.Color.Gainsboro;
             this.yourReferenceTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.yourReferenceTextBox.Location = new System.Drawing.Point(203, 135);
+            this.yourReferenceTextBox.Location = new System.Drawing.Point(203, 113);
             this.yourReferenceTextBox.Name = "yourReferenceTextBox";
             this.yourReferenceTextBox.Size = new System.Drawing.Size(194, 23);
             this.yourReferenceTextBox.TabIndex = 20;
@@ -286,7 +287,7 @@
             // 
             this.ourReferenceTextBox.BackColor = System.Drawing.Color.Gainsboro;
             this.ourReferenceTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ourReferenceTextBox.Location = new System.Drawing.Point(203, 113);
+            this.ourReferenceTextBox.Location = new System.Drawing.Point(203, 135);
             this.ourReferenceTextBox.Name = "ourReferenceTextBox";
             this.ourReferenceTextBox.Size = new System.Drawing.Size(194, 23);
             this.ourReferenceTextBox.TabIndex = 19;
@@ -407,15 +408,16 @@
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // button1
+            // printButton
             // 
-            this.button1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(1007, 720);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 30);
-            this.button1.TabIndex = 29;
-            this.button1.Text = "Print";
-            this.button1.UseVisualStyleBackColor = true;
+            this.printButton.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printButton.Location = new System.Drawing.Point(1007, 720);
+            this.printButton.Name = "printButton";
+            this.printButton.Size = new System.Drawing.Size(75, 30);
+            this.printButton.TabIndex = 29;
+            this.printButton.Text = "Print";
+            this.printButton.UseVisualStyleBackColor = true;
+            this.printButton.Click += new System.EventHandler(this.printButton_Click);
             // 
             // printDialog1
             // 
@@ -431,15 +433,16 @@
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
-            // button3
+            // printPreviewButton
             // 
-            this.button3.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(877, 720);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(124, 30);
-            this.button3.TabIndex = 30;
-            this.button3.Text = "Print preview";
-            this.button3.UseVisualStyleBackColor = true;
+            this.printPreviewButton.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printPreviewButton.Location = new System.Drawing.Point(877, 720);
+            this.printPreviewButton.Name = "printPreviewButton";
+            this.printPreviewButton.Size = new System.Drawing.Size(124, 30);
+            this.printPreviewButton.TabIndex = 30;
+            this.printPreviewButton.Text = "Print preview";
+            this.printPreviewButton.UseVisualStyleBackColor = true;
+            this.printPreviewButton.Click += new System.EventHandler(this.printPreviewButton_Click);
             // 
             // removeRowButton
             // 
@@ -461,7 +464,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(194, 29);
             this.dateTimePicker1.TabIndex = 32;
-            this.dateTimePicker1.Value = new System.DateTime(2017, 6, 18, 20, 32, 45, 0);
+            this.dateTimePicker1.Value = new System.DateTime(2017, 7, 18, 0, 0, 0, 0);
             // 
             // InvoiceForm
             // 
@@ -472,8 +475,8 @@
             this.ClientSize = new System.Drawing.Size(1094, 762);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.removeRowButton);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.printPreviewButton);
+            this.Controls.Add(this.printButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.addRowButton);
             this.Controls.Add(this.sumLabel);
@@ -534,11 +537,12 @@
         private System.Windows.Forms.Label sumLabel;
         private System.Windows.Forms.Button addRowButton;
         private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button printButton;
         private System.Windows.Forms.PrintDialog printDialog1;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button printPreviewButton;
         private System.Windows.Forms.Button removeRowButton;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Drawing.Printing.PrintDocument printDocument1;
     }
 }

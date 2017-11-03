@@ -25,46 +25,23 @@ namespace FolkBok
             InitializeComponent();
             height = ClientSize.Height;
             width = ClientSize.Width;
+            SetupListViews();
+            ImportAccounts();
+
+            PrintPreview prev = new PrintPreview();
+            prev.ShowDialog();
+        }
+
+        private void SetupListViews()
+        {
 
             listViewWidth[0] = listView1.Width;
             listViewWidth[1] = listView2.Width;
             listViewWidth[2] = listView3.Width;
             
-            listView1.View = View.Details;
-            listView1.FullRowSelect = true;
-
-            //Global g = new Global();
-            //Console.WriteLine(g.VoucherNumber);
-            //VoucherForm VoucherForm = new VoucherForm();
-            //VoucherForm.ShowDialog();
-            //AddInvoice addInvoice = new AddInvoice();
-            //addInvoice.ShowDialog();
-
-            //dbSync();
-
-            /*Random r = new Random();
-            List<int> list1 = new List<int>();
-            List<int> list2 = new List<int>();
-            for (int i = 0; i < 10000; i++)
-            {
-                int n = r.Next(1000000);
-                list1.Add(n);
-                list2.Add(n);
-            }
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-            list1 = quickSort(list1);
-            watch.Stop();
-            Console.WriteLine(watch.ElapsedMilliseconds);
-            watch = System.Diagnostics.Stopwatch.StartNew();
-            list2.Sort();
-            watch.Stop();
-            Console.WriteLine(watch.ElapsedMilliseconds);
-            for(int i = 0; i < 10000; i++)
-            {
-                Console.WriteLine(list1[i] + "      " + list2[i]);
-            }*/
-
-            ImportAccounts();
+            listView1.Columns.Add("Nummer", 100, HorizontalAlignment.Left);
+            listView1.Columns.Add("Namn", 200, HorizontalAlignment.Left);
+            listView1.Columns.Add("Balans", 100, HorizontalAlignment.Left);
         }
 
         private void ImportAccounts()
@@ -75,6 +52,8 @@ namespace FolkBok
                 ListViewItem item = new ListViewItem(a.Number.ToString());
                 item.SubItems.Add(a.Name);
                 item.SubItems.Add(a.Balance.ToString());
+                item.Font = new Font("Times New Roman", 12);
+                
                 listView1.Items.Add(item);
             }
         }
@@ -122,14 +101,6 @@ namespace FolkBok
             return pl;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //DBCommunication dbCom = new DBCommunication();
-            //Invoice i = dbCom.GetInvoice(2);
-            InvoiceForm InvoiceForm = new InvoiceForm();
-            InvoiceForm.ShowDialog();
-        }
-
         private void ChangeSize(object sender, EventArgs e)
         {
             int newHeight = ClientSize.Height;
@@ -152,6 +123,29 @@ namespace FolkBok
             listView2.Width = (int)Math.Round(listViewWidth[1]);
             listView3.Height = (int)Math.Round(listViewHeight);
             listView3.Width = (int)Math.Round(listViewWidth[2]);
+        }
+
+        private void listView1_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            e.Graphics.DrawString(e.Header.Text, new Font("Times New Roman", 12), Brushes.Black, e.Bounds);
+        }
+
+        private void listView1_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            e.Graphics.DrawString(listView1.Items[e.ItemIndex].Text, listView1.Items[e.ItemIndex].Font, Brushes.Black, e.Bounds);
+        }
+
+        private void listView1_DrawSubItem_1(object sender, DrawListViewSubItemEventArgs e)
+        {
+            e.Graphics.DrawString(listView1.Items[e.ItemIndex].SubItems[e.ColumnIndex].Text, listView1.Items[e.ItemIndex].Font, Brushes.Black, e.Bounds);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            /*Graphics gfx = CreateGraphics();
+            gfx.DrawLine(Pens.Black, width, 0, 0, height);*/
+            InvoiceForm info = new InvoiceForm();
+            info.ShowDialog();
         }
     }
 }
