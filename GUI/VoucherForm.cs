@@ -30,7 +30,7 @@ namespace FolkBok
 
             accounts = new List<Account>();
             DBCommunication DBCom = new DBCommunication();
-            accounts = DBCom.ImportAccounts();
+            //accounts = DBCom.ImportAccounts();
 
             accountBox1.Items.AddRange(accounts.ToArray());
             accountBox2.Items.AddRange(accounts.ToArray());

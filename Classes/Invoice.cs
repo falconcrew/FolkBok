@@ -10,15 +10,23 @@ namespace FolkBok
     {
         private List<InvoiceLine> lines;
 
-        public Invoice(string name, string address, DateTime date, string ourReference, string yourReference)
+        public Invoice(string name, string address, DateTime date, string ourReference, string yourReference, bool newInvoice)
         {
             Name = name;
             Address = address;
             Date = date;
             OurReference = ourReference;
             YourReference = yourReference;
-            SetNumber();
             lines = new List<InvoiceLine>();
+            if (newInvoice)
+            {
+                SetNumber();
+            }
+        }
+
+        public Invoice(int ID, string name, string address, DateTime date, string ourReference, string yourReference) : this(name, address, date, ourReference, yourReference, false)
+        {
+            Number = ID;
         }
 
         public void AddLine(string description, DateTime date, double amount)
@@ -38,7 +46,7 @@ namespace FolkBok
 
         private void SetNumber()
         {
-            Number = 12;
+            Number = 18;
         }
 
         public string Name
@@ -74,7 +82,7 @@ namespace FolkBok
         public int Number
         {
             get;
-            set;
+            private set;
         }
 
         public double Sum

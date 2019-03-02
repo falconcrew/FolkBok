@@ -16,7 +16,9 @@ namespace FolkBok
 
         public static void Init()
         {
-            SqlConnection connection = new SqlConnection(ConnectionString);
+            DBCom = new DBCommunication();
+            //DBCom.GetGlobalVariables();
+            /*SqlConnection connection = new SqlConnection(ConnectionString);
             connection.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
@@ -42,7 +44,7 @@ namespace FolkBok
             {
 
             }
-            connection.Close();
+            connection.Close();*/
         }
 
         public static bool UpdateInformation()
@@ -122,6 +124,12 @@ namespace FolkBok
         {
             get;
             set;
+        }
+
+        public static DBCommunication DBCom
+        {
+            get;
+            private set;
         }
     }
 }

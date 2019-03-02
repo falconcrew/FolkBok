@@ -46,8 +46,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label16 = new System.Windows.Forms.Label();
             this.invoiceNumberLabel = new System.Windows.Forms.Label();
-            this.yourReferenceTextBox = new System.Windows.Forms.TextBox();
             this.ourReferenceTextBox = new System.Windows.Forms.TextBox();
+            this.yourReferenceTextBox = new System.Windows.Forms.TextBox();
             this.addressTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -238,8 +238,8 @@
             this.tableLayoutPanel1.Controls.Add(this.paymentTermLabel, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label11, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.invoiceNumberLabel, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.yourReferenceTextBox, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.ourReferenceTextBox, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.ourReferenceTextBox, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.yourReferenceTextBox, 1, 5);
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 182);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -273,23 +273,23 @@
             this.invoiceNumberLabel.Size = new System.Drawing.Size(0, 21);
             this.invoiceNumberLabel.TabIndex = 18;
             // 
-            // yourReferenceTextBox
-            // 
-            this.yourReferenceTextBox.BackColor = System.Drawing.Color.Gainsboro;
-            this.yourReferenceTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.yourReferenceTextBox.Location = new System.Drawing.Point(203, 135);
-            this.yourReferenceTextBox.Name = "yourReferenceTextBox";
-            this.yourReferenceTextBox.Size = new System.Drawing.Size(194, 23);
-            this.yourReferenceTextBox.TabIndex = 20;
-            // 
             // ourReferenceTextBox
             // 
             this.ourReferenceTextBox.BackColor = System.Drawing.Color.Gainsboro;
             this.ourReferenceTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ourReferenceTextBox.Location = new System.Drawing.Point(203, 113);
+            this.ourReferenceTextBox.Location = new System.Drawing.Point(203, 135);
             this.ourReferenceTextBox.Name = "ourReferenceTextBox";
             this.ourReferenceTextBox.Size = new System.Drawing.Size(194, 23);
-            this.ourReferenceTextBox.TabIndex = 19;
+            this.ourReferenceTextBox.TabIndex = 20;
+            // 
+            // yourReferenceTextBox
+            // 
+            this.yourReferenceTextBox.BackColor = System.Drawing.Color.Gainsboro;
+            this.yourReferenceTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.yourReferenceTextBox.Location = new System.Drawing.Point(203, 113);
+            this.yourReferenceTextBox.Name = "yourReferenceTextBox";
+            this.yourReferenceTextBox.Size = new System.Drawing.Size(194, 23);
+            this.yourReferenceTextBox.TabIndex = 19;
             // 
             // addressTextBox
             // 
@@ -387,34 +387,36 @@
             // 
             // addRowButton
             // 
+            this.addRowButton.AutoSize = true;
             this.addRowButton.Font = new System.Drawing.Font("Times New Roman", 14F);
             this.addRowButton.Location = new System.Drawing.Point(10, 449);
             this.addRowButton.Name = "addRowButton";
-            this.addRowButton.Size = new System.Drawing.Size(100, 30);
+            this.addRowButton.Size = new System.Drawing.Size(108, 31);
             this.addRowButton.TabIndex = 27;
-            this.addRowButton.Text = "Add row";
+            this.addRowButton.Text = "Lägg till rad";
             this.addRowButton.UseVisualStyleBackColor = true;
             this.addRowButton.Click += new System.EventHandler(this.AddRowButton_Click);
             // 
             // saveButton
             // 
             this.saveButton.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saveButton.Location = new System.Drawing.Point(796, 720);
+            this.saveButton.Location = new System.Drawing.Point(772, 721);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 30);
             this.saveButton.TabIndex = 28;
-            this.saveButton.Text = "Save";
+            this.saveButton.Text = "Spara";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // button1
             // 
+            this.button1.AutoSize = true;
             this.button1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(1007, 720);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 30);
+            this.button1.Size = new System.Drawing.Size(78, 31);
             this.button1.TabIndex = 29;
-            this.button1.Text = "Print";
+            this.button1.Text = "Skriv ut";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // printDialog1
@@ -433,22 +435,25 @@
             // 
             // button3
             // 
+            this.button3.AutoSize = true;
             this.button3.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(877, 720);
+            this.button3.Location = new System.Drawing.Point(853, 720);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(124, 30);
+            this.button3.Size = new System.Drawing.Size(148, 31);
             this.button3.TabIndex = 30;
-            this.button3.Text = "Print preview";
+            this.button3.Text = "Förhandsgranska";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // removeRowButton
             // 
+            this.removeRowButton.AutoSize = true;
             this.removeRowButton.Font = new System.Drawing.Font("Times New Roman", 14F);
-            this.removeRowButton.Location = new System.Drawing.Point(116, 449);
+            this.removeRowButton.Location = new System.Drawing.Point(124, 449);
             this.removeRowButton.Name = "removeRowButton";
-            this.removeRowButton.Size = new System.Drawing.Size(116, 30);
+            this.removeRowButton.Size = new System.Drawing.Size(116, 31);
             this.removeRowButton.TabIndex = 31;
-            this.removeRowButton.Text = "Remove row";
+            this.removeRowButton.Text = "Ta bort rad";
             this.removeRowButton.UseVisualStyleBackColor = true;
             this.removeRowButton.Click += new System.EventHandler(this.RemoveRowButton_Click);
             // 
@@ -469,7 +474,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1094, 762);
+            this.ClientSize = new System.Drawing.Size(1089, 756);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.removeRowButton);
             this.Controls.Add(this.button3);
@@ -521,8 +526,8 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label invoiceNumberLabel;
-        private System.Windows.Forms.TextBox ourReferenceTextBox;
         private System.Windows.Forms.TextBox yourReferenceTextBox;
+        private System.Windows.Forms.TextBox ourReferenceTextBox;
         private System.Windows.Forms.TextBox addressTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;

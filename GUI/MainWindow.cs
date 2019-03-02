@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
+//using System.Windows;
+using System.Drawing.Printing;
 
 namespace FolkBok
 {
@@ -24,67 +26,67 @@ namespace FolkBok
         {
             InitializeComponent();
             Global.Init();
+            SetupListViews();
+            //ImportAccounts();
+            ImportInvoices();
+            //InvoiceForm i = new InvoiceForm();
+            //i.ShowDialog();
 
-            DBCommunication dbCom = new DBCommunication();
-            //Invoice i = dbCom.GetInvoice(2);
-            //InvoiceForm InvoiceForm = new InvoiceForm(i);
-            //InvoiceForm.ShowDialog();
-            //Voucher v = dbCom.GetVoucher(1);
-            //VoucherForm VoucherForm = new VoucherForm(v);
+            //DBCommunication dbCom = new DBCommunication();
             height = ClientSize.Height;
             width = ClientSize.Width;
 
             listViewWidth[0] = listView1.Width;
             listViewWidth[1] = listView2.Width;
             listViewWidth[2] = listView3.Width;
-            
+
+            /*PrintPreviewDialog printPrev = new PrintPreviewDialog();
+            printPrev.Document = new PrintDocument();
+            Graphics gfx = printPrev.CreateGraphics();
+            Pen pen = new Pen(Brushes.Black, 30);
+            gfx.DrawLine(pen, 0, 0, 200, 400);
+            printPrev.Height = 1000;
+            printPrev.Width = (int) (1000 / Math.Sqrt(2));
+            printPrev.ShowDialog();*/
+        }
+
+        private void SetupListViews()
+        {
             listView1.View = View.Details;
             listView1.FullRowSelect = true;
+            listView1.Columns.Add("Nummer", -2, HorizontalAlignment.Left);
+            listView1.Columns.Add("Namn", -2, HorizontalAlignment.Left);
+            listView1.Columns.Add("Balans", -2, HorizontalAlignment.Left);
 
-            //Global g = new Global();
-            //Console.WriteLine(g.VoucherNumber);
-            //VoucherForm VoucherForm = new VoucherForm();
-            //VoucherForm.ShowDialog();
-            //AddInvoice addInvoice = new AddInvoice();
-            //addInvoice.ShowDialog();
-
-            //dbSync();
-
-            /*Random r = new Random();
-            List<int> list1 = new List<int>();
-            List<int> list2 = new List<int>();
-            for (int i = 0; i < 10000; i++)
-            {
-                int n = r.Next(1000000);
-                list1.Add(n);
-                list2.Add(n);
-            }
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-            list1 = quickSort(list1);
-            watch.Stop();
-            Console.WriteLine(watch.ElapsedMilliseconds);
-            watch = System.Diagnostics.Stopwatch.StartNew();
-            list2.Sort();
-            watch.Stop();
-            Console.WriteLine(watch.ElapsedMilliseconds);
-            for(int i = 0; i < 10000; i++)
-            {
-                Console.WriteLine(list1[i] + "      " + list2[i]);
-            }*/
-
-            ImportAccounts();
+            listView2.View = View.Details;
+            listView2.FullRowSelect = true;
+            listView2.Columns.Add("Nummer", -2, HorizontalAlignment.Left);
+            listView2.Columns.Add("Namn", -2, HorizontalAlignment.Left);
         }
-        
+
+        private void ImportInvoices()
+        {
+            List<string> invoices = Global.DBCom.GetInvoices();
+            int number = 0;
+            foreach (string name in invoices)
+            {
+                number++;
+                ListViewItem i = new ListViewItem(number.ToString());
+                i.SubItems.Add(name);
+                listView2.Items.Add(i);
+            }
+        }
+
         private void ImportAccounts()
         {
             DBCommunication DBCom = new DBCommunication();
-            foreach(Account a in DBCom.ImportAccounts())
+            /*foreach(Account a in DBCom.ImportAccounts())
             {
                 ListViewItem item = new ListViewItem(a.Number.ToString());
                 item.SubItems.Add(a.Name);
                 item.SubItems.Add(a.Balance.ToString());
                 listView1.Items.Add(item);
-            }
+            }*/
         }
 
         private List<int> quickSort(List<int> pl)
@@ -153,13 +155,28 @@ namespace FolkBok
             listViewWidth[0] += addWidth;
             listViewWidth[1] += addWidth;
             listViewWidth[2] += addWidth;
-            listViewHeight = height - tableLayoutPanel1.Location.Y - 3 - 12;
+            listViewHeight = height - tableLayoutPanel1.Location.Y - 3 - 12 - 3 - 12;
             listView1.Height = (int)Math.Round(listViewHeight);
             listView1.Width = (int)Math.Round(listViewWidth[0]);
             listView2.Height = (int)Math.Round(listViewHeight);
             listView2.Width = (int)Math.Round(listViewWidth[1]);
             listView3.Height = (int)Math.Round(listViewHeight);
             listView3.Width = (int)Math.Round(listViewWidth[2]);
+        }
+
+        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView lv = (ListView)sender;
+            foreach (ListViewItem i in lv.Items)
+            {
+                if(i.Selected)
+                {
+                    int number = int.Parse(i.Text);
+                    Invoice invoice = Global.DBCom.GetInvoice(number);
+                    InvoiceForm IF = new InvoiceForm(invoice);
+                    IF.ShowDialog();
+                }
+            }
         }
     }
 }

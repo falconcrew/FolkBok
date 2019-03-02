@@ -8,11 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DAO;
 
 namespace FolkBok
 {
     public partial class InvoiceForm : Form
     {
+        DBCommunication DBCom;
         private int invoiceNumber;
         private DateTime invoiceDate;
         private int paymentTerm;
@@ -22,6 +24,7 @@ namespace FolkBok
         private List<DateTimePicker> dateBoxes;
         private List<TextBox> amountTextBoxes;
         private string settingsFile = Directory.GetCurrentDirectory() + "\\InvoiceSettings.txt";
+        private bool newInvoice;
 
         private const int up = -1;
         private const int down = 1;
@@ -34,15 +37,18 @@ namespace FolkBok
             descriptionTextBoxes = new List<TextBox>();
             descriptionTextBoxes.Add(descriptionTextBox1);
             dateBoxes = new List<DateTimePicker>();
+            dateTimePicker1.Value = DateTime.Now;
             dateBoxes.Add(dateTimePicker1);
             amountTextBoxes = new List<TextBox>();
             amountTextBoxes.Add(amountTextBox1);
+            DBCom = new DBCommunication();
+            newInvoice = true;
         }
 
         public InvoiceForm(Invoice invoice) : this()
         {
-            ourReferenceTextBox.Text = invoice.OurReference;
-            yourReferenceTextBox.Text = invoice.YourReference;
+            yourReferenceTextBox.Text = invoice.OurReference;
+            ourReferenceTextBox.Text = invoice.YourReference;
             addressTextBox.AppendText(invoice.Address);
             descriptionTextBox1.Text = invoice.Lines[0].Description;
             dateTimePicker1.Value = invoice.Lines[0].Date;
@@ -54,6 +60,7 @@ namespace FolkBok
                 dateBoxes[i].Value = invoice.Lines[i].Date;
                 amountTextBoxes[i].Text = invoice.Lines[i].Amount.ToString();
             }
+            newInvoice = false;
         }
 
         private void SetupLabels()
@@ -108,6 +115,7 @@ namespace FolkBok
             DP.ImeMode = ImeMode.NoControl;
             DP.Name = "dateTimePicker" + dateBoxes.Count;
             DP.Size = new Size(194, 29);
+            DP.Value = DateTime.Now;
             DP.TabIndex = 32;
             Controls.Add(DP);
             dateBoxes.Add(DP);
@@ -170,9 +178,9 @@ namespace FolkBok
         private void SaveButton_Click(object sender, EventArgs e)
         {
             string address = addressTextBox.Text;
-            string ourReference = ourReferenceTextBox.Text;
-            string yourReference = yourReferenceTextBox.Text;
-            Invoice invoice = new Invoice("Name", address, invoiceDate, ourReference, yourReference);
+            string ourReference = yourReferenceTextBox.Text;
+            string yourReference = ourReferenceTextBox.Text;
+            Invoice invoice = new Invoice("Name", address, invoiceDate, ourReference, yourReference, newInvoice);
             for (int i = 0; i < descriptionTextBoxes.Count; i++)
             {
                 string description = descriptionTextBoxes.ElementAt(i).Text;
@@ -182,6 +190,7 @@ namespace FolkBok
             }
 
             InvoicePDF pdf = new InvoicePDF("Faktura " + invoice.Number, invoice);
+            DBCom.AddInvoice(invoice);
         }
 
         private double Sum
@@ -198,6 +207,11 @@ namespace FolkBok
                 }
                 return sum;
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            printPreviewDialog1.ShowDialog();
         }
     }
 }

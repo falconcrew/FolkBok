@@ -7,12 +7,137 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DAO;
 
 namespace FolkBok
 {
     public class DBCommunication
     {
-        private SqlConnection connection;
+        private DBEngine DBEngine;
+        private Database DB;
+
+        public DBCommunication()
+        {
+            DBEngine = new DBEngine();
+            DB = DBEngine.OpenDatabase("FolkBok.mdb", null, false, null);
+        }
+
+        public bool AddInvoice(Invoice invoice)
+        {
+            try
+            {
+                Recordset rs = DB.OpenTable("Invoices");
+                rs.AddNew();
+                rs.Fields["Name"].Value = invoice.Name;
+                rs.Fields["Date"].Value = invoice.Date;
+                rs.Fields["Address"].Value = invoice.Address;
+                rs.Fields["OurReference"].Value = invoice.OurReference;
+                rs.Fields["YourReference"].Value = invoice.YourReference;
+                rs.Update();
+
+                foreach (InvoiceLine line in invoice.Lines)
+                {
+                    rs = DB.OpenTable("Lines");
+                    rs.AddNew();
+                    int lineID = rs.Fields["ID"].Value;
+                    rs.Fields["Description"].Value = line.Description;
+                    rs.Fields["Date"].Value = line.Date;
+                    rs.Fields["Amount"].Value = line.Amount;
+                    rs.Update();
+                    rs = DB.OpenTable("InvoiceLines");
+                    rs.AddNew();
+                    rs.Fields["InvoiceID"].Value = invoice.Number;
+                    rs.Fields["LineID"].Value = lineID;
+                    rs.Update();
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return false;
+            }
+        }
+
+        public bool UpdateInvoice(Invoice invoice)
+        {
+            try
+            {
+                Recordset rs = DB.OpenRecordset("select * from Invoices where ID = " + invoice.Number);
+                rs.Fields["Name"].Value = invoice.Name;
+                rs.Fields["Date"].Value = invoice.Date;
+                rs.Fields["Address"].Value = invoice.Address;
+                rs.Fields["OurReference"].Value = invoice.OurReference;
+                rs.Fields["YourReference"].Value = invoice.YourReference;
+                rs.Update();
+                
+                foreach (InvoiceLine line in invoice.Lines)
+                {
+                    rs = DB.OpenRecordset("select * from Lines where ID = " + line.ID);
+                    rs.Fields["Description"].Value = line.Description;
+                    rs.Fields["Date"].Value = line.Date;
+                    rs.Fields["Amount"].Value = line.Amount;
+                    rs.Update();
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return false;
+            }
+        }
+
+        public List<string> GetInvoices()
+        {
+            List<string> invoices = new List<string>();
+            Recordset rs = DB.OpenRecordset("select Name from Invoices");
+            while (!rs.EOF)
+            {
+                invoices.Add(rs.Fields["Name"].Value);
+                Console.WriteLine(rs.Fields["Name"].Value);
+                rs.MoveNext();
+            }
+            return invoices;
+        }
+
+        public Invoice GetInvoice(int ID)
+        {
+            Recordset rs = DB.OpenRecordset("select * from Invoices where ID = " + ID);
+            Invoice invoice = new Invoice(ID, rs.Fields["Name"].Value, rs.Fields["Address"].Value, rs.Fields["Date"].Value, rs.Fields["OurReference"].Value, rs.Fields["YourReference"].Value);
+            rs = DB.OpenRecordset("select * from InvoiceLines where InvoiceID = " + ID);
+            while (!rs.EOF)
+            {
+                Recordset lineRS = DB.OpenRecordset("select * from Lines where ID = " + rs.Fields["LineID"].Value);
+                while (!lineRS.EOF)
+                {
+                    invoice.AddLine(lineRS.Fields["Description"].Value, lineRS.Fields["Date"].Value, lineRS.Fields["Amount"].Value);
+                    lineRS.MoveNext();
+                }
+                rs.MoveNext();
+            }
+            return invoice;
+        }
+
+        public void GetGlobalVariables()
+        {
+            Recordset rs = DB.OpenRecordset("select * from Globals");
+            Global.VoucherNumber = (int)rs.Fields["VoucherNumber"].Value;
+            Global.InvoiceNumber = (int)rs.Fields["InvoiceNumber"].Value;
+            Global.PaymentTerm = (int)rs.Fields["PaymentTerm"].Value;
+            Global.PenaltyInterest = (double)rs.Fields["PenaltyInterest"].Value;
+            Global.Address = (string)rs.Fields["Address"].Value;
+            Global.Name = (string)rs.Fields["Name"].Value;
+            Global.PhoneNumber = (string)rs.Fields["PhoneNumber"].Value;
+            Global.Email = (string)rs.Fields["Email"].Value;
+            Global.OrgNumber = (string)rs.Fields["OrgNumber"].Value;
+            Global.FSkatt = (bool)rs.Fields["FSkatt"].Value;
+            Global.Bankgiro = (string)rs.Fields["Bankgiro"].Value;
+        }
+
+
+
+        /*private SqlConnection connection;
         private SqlCommand cmd;
         private SqlDataReader reader;
 
@@ -196,6 +321,6 @@ namespace FolkBok
             }
             connection.Close();
             return accounts;
-        }
+        }*/
     }
 }
